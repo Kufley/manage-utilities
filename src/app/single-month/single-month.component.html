@@ -1,0 +1,136 @@
+
+<div *ngIf="month">
+
+  <!--<h2>{{ month.name_month | uppercase }} Details</h2>-->
+  <!--<div>-->
+    <!--<label>name:-->
+      <!--<input [(ngModel)]="month.name_month" placeholder="name">-->
+    <!--</label>-->
+  <!--</div>-->
+
+  <div class="container">
+    <div class="row justify-content-between">
+      <div class="col col-xs-4">
+
+        <a routerLink="/year">
+          <div (click)="goBack()" class="back"></div>
+        </a>
+      </div>
+      <div class="col col-xs-4">
+
+        <div class="month-heading">{{month.name_month}}</div>
+      </div>
+      <div class="col col-xs-4">
+
+
+      </div>
+    </div>
+    <form>
+      <div class="row">
+        <div class="col-sm-3 col-xs-12">
+          <div class="flex align-items-center">
+            <span class="icon gas"></span>
+            <span class="name-utility">Gas</span>
+          </div>
+        </div>
+        <div class="col-sm-3 col-xs-6">
+          <label class="sr-only" for="prev-gas">Name</label>
+          <input type="text" class="form-control" id="prev-gas" placeholder="Current value">
+        </div>
+        <div class="col-sm-3 col-xs-6">
+          <label class="sr-only" for="next-gas">Name</label>
+          <input type="text" class="form-control" id="next-gas" placeholder="Previous value">
+        </div>
+        <div class="col-sm-1 col-xs-6">
+          <span class="icon calc calc-gas"></span>
+        </div>
+        <div class="col-sm-2 col-xs-6">
+          <span class="price-gas flex justify-content-end align-items-center">110</span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-3 col-xs-12">
+          <div class="flex align-items-center">
+            <span class="icon electric"></span>
+            <span class="name-utility">Electricity</span>
+          </div>
+        </div>
+        <div class="col-sm-3 col-xs-6">
+          <label class="sr-only" for="prev-electric">Name</label>
+          <input type="text" class="form-control" id="prev-electric" placeholder="Current value">
+        </div>
+        <div class="col-sm-3 col-xs-6">
+          <label class="sr-only" for="next-electric">Name</label>
+          <input type="text" class="form-control" id="next-electric" placeholder="Previous value">
+        </div>
+        <div class="col-sm-1 col-xs-6">
+          <span class="icon calc calc-electric"></span>
+        </div>
+        <div class="col-sm-2 col-xs-6">
+          <span class="price-electric flex justify-content-end align-items-center">110</span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-3 col-xs-12">
+          <div class="flex align-items-center">
+            <span class="icon water"></span>
+            <span class="name-utility">Water</span>
+          </div>
+        </div>
+        <div class="col-sm-3 col-xs-6">
+          <label class="sr-only" for="prev-water">Name</label>
+          <input type="text" class="form-control" id="prev-water" placeholder="Current value">
+        </div>
+        <div class="col-sm-3 col-xs-6">
+          <label class="sr-only" for="next-water">Name</label>
+          <input type="text" class="form-control" id="next-water" placeholder="Previous value">
+        </div>
+        <div class="col-sm-1 col-xs-6">
+          <span class="icon calc calc-water"></span>
+        </div>
+        <div class="col-sm-2 col-xs-6">
+          <span class="price-water flex justify-content-end align-items-center">110</span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-3 col-xs-12">
+          <div class="flex align-items-center">
+            <span class="icon rent"></span>
+            <span class="name-utility">Home rent</span>
+          </div>
+        </div>
+        <div class="col-sm-3 col-xs-6">
+          <label class="sr-only" for="rent">Name</label>
+          <input type="text" class="form-control" id="rent" placeholder="Monthly price">
+        </div>
+
+
+        <div class="col-sm-2 offset-sm-4 col-xs-6">
+          <span class="price-rent flex justify-content-end align-items-center">110</span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="offset-sm-6 col-xs-6 col-sm-4 total-for-month">
+          <div>Total Expenses:</div>
+          <span>1 month</span>
+        </div>
+        <div class="col-sm-2 col-xs-6 total-for-month ">
+          <div class="flex justify-content-end">6458.50</div>
+        </div>
+      </div>
+      <div class="row align-items-center">
+        <div class="col-sm-6 col-xs-6">
+          <div class="save flex align-items-center">Save</div>
+        </div>
+
+        <div class="col-sm-6 col-xs-6">
+          <div class="submit flex justify-content-end">
+            <button type="submit">Confirm</button>
+          </div>
+        </div>
+      </div>
+    </form>
+
+  </div>
+
+</div>

@@ -1,0 +1,152 @@
+
+<div class="container">
+  <div class="row justify-content-between">
+    <div class="col col-xs-4">
+      <div class="prev"></div>
+    </div>
+    <div class="col col-xs-4">
+
+      <div class="year">2018</div>
+    </div>
+    <div class="col col-xs-4">
+
+      <div class="next"></div>
+    </div>
+  </div>
+  <main>
+    <div class="row justify-content-between">
+      <!--<div class="col-sm-3 col-xs-6">-->
+      <!--<div class="month">-->
+      <!--<div class="name"><a href="month.html">Jan</a></div>-->
+      <!--<div class="price-for-month">1020</div>-->
+      <!--</div>-->
+      <!--</div>-->
+      <!--<div class=" col-sm-3 col-xs-6">-->
+      <!--<div class="month">-->
+      <!--<div class="name">Feb</div>-->
+      <!--<div class="price-for-month">1020</div>-->
+      <!--</div>-->
+      <!--</div>-->
+      <!--<div class=" col-sm-3 col-xs-6">-->
+      <!--<div class="month">-->
+      <!--<div class="name">Mar</div>-->
+      <!--<div class="price-for-month">1020</div>-->
+      <!--</div>-->
+      <!--</div>-->
+      <!--<div class=" col-sm-3 col-xs-6">-->
+      <!--<div class="month active">-->
+      <!--<div class="name current-month">Apr</div>-->
+      <!--<div class="price-for-month edit">520</div>-->
+      <!--</div>-->
+      <!--</div>-->
+
+      <!--<div class=" col-sm-3 col-xs-6">-->
+      <!--<div class="month active">-->
+      <!--<div class="name">May</div>-->
+      <!--<div class="add"></div>-->
+      <!--</div>-->
+      <!--</div>-->
+      <!--<div class=" col-sm-3 col-xs-6">-->
+      <!--<div class="month disable">-->
+      <!--<div class="name">Jun</div>-->
+      <!--<div class="price-for-month"></div>-->
+      <!--</div>-->
+      <!--</div>-->
+      <!--<div class=" col-sm-3 col-xs-6">-->
+      <!--<div class="month disable">-->
+      <!--<div class="name">Jul</div>-->
+      <!--<div class="price-for-month"></div>-->
+      <!--</div>-->
+      <!--</div>-->
+      <!--<div class=" col-sm-3 col-xs-6">-->
+      <!--<div class="month disable">-->
+      <!--<div class="name">Aug</div>-->
+      <!--<div class="price-for-month"></div>-->
+      <!--</div>-->
+      <!--</div>-->
+
+      <!--<div class=" col-sm-3 col-xs-6">-->
+      <!--<div class="month disable">-->
+      <!--<div class="name">Sep</div>-->
+      <!--<div class="price-for-month"></div>-->
+      <!--</div>-->
+      <!--</div>-->
+      <!--<div class="col-sm-3 col-xs-6">-->
+      <!--<div class="month disable">-->
+      <!--<div class="name">Oct</div>-->
+      <!--<div class="price-for-month"></div>-->
+      <!--</div>-->
+      <!--</div>-->
+      <!--<div class=" col-sm-3 col-xs-6">-->
+      <!--<div class="month disable">-->
+      <!--<div class="name">Nov</div>-->
+      <!--<div class="price-for-month"></div>-->
+      <!--</div>-->
+      <!--</div>-->
+      <!--<div class=" col-sm-3 col-xs-6">-->
+      <!--<div class="month disable">-->
+      <!--<div class="name">Dec</div>-->
+      <!--<div class="price-for-month"></div>-->
+      <!--</div>-->
+      <!--</div>-->
+
+      <div *ngFor="let month of months" routerLink="/month/{{month.pos_month}}" class=" col-sm-3 col-xs-6">
+        <div class="month">
+          <div class="name"><a href="#">{{month.name_month}}</a></div>
+          <div class="price-for-month"></div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+
+
+      <div class="col">
+        <div class="total-price">
+          <div class="heading-total">Total: <span>10345.50</span></div>
+
+          <div class="heading-total">Expenses by type:</div>
+        </div>
+
+        <div class="total-body">
+          <div class="row justify-content-between">
+            <div class="col-sm-3 col-xs-6">
+              <div class="flex align-items-center">
+                <span class="icon gas"></span>
+                <span class="name-utility">Gas</span>
+              </div>
+              <div class="price-for-year">420</div>
+            </div>
+            <div class="col-sm-3 col-xs-6">
+              <div class="flex align-items-center">
+                <span class="icon electric"></span>
+                <span class="name-utility">Electricity</span>
+              </div>
+              <div class="price-for-year">420</div>
+            </div>
+            <div class="col-sm-3 col-xs-6">
+              <div class="flex align-items-center">
+                <span class="icon water"></span>
+                <span class="name-utility">Water</span>
+              </div>
+              <div class="price-for-year">420</div>
+
+            </div>
+            <div class="col-sm-3 col-xs-6">
+              <div class="flex align-items-center">
+                <span class="icon rent"></span>
+                <span class="name-utility">Home rent</span>
+              </div>
+              <div class="price-for-year">420</div>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+</div>
+<app-single-month [month]="selectedMonth"></app-single-month>
+
+
