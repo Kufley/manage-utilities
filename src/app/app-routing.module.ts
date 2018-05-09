@@ -8,7 +8,7 @@ import { SingleMonthComponent } from "./single-month/single-month.component";
 const routes: Routes = [
     { path: '', redirectTo: '/year', pathMatch: 'full' },
     { path: 'year', component: YearComponent },
-    { path: 'month/:pos_month', component: SingleMonthComponent },
+    { path: 'month/:id', component: SingleMonthComponent },
 ];
 
 @NgModule({

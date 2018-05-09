@@ -19,6 +19,8 @@ import { PaymentService } from '../payment.service';
     getPayments(): void {
         this.paymentService.getPayments()
             .subscribe(months => this.months = months);
+
+
     }
   ngOnInit() {
       this.getPayments();

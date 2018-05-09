@@ -16,7 +16,7 @@ export class SingleMonthComponent implements OnInit {
 
     constructor(
         private route: ActivatedRoute,
-        private paymenoService: PaymentService,
+        private paymentService: PaymentService,
         private location: Location
     ) {}
 
@@ -25,8 +25,8 @@ export class SingleMonthComponent implements OnInit {
     }
 
     getMonth(): void {
-        const id = +this.route.snapshot.paramMap.get('pos_month');
-        this.paymenoService.getMonth(id)
+        const id = +this.route.snapshot.paramMap.get('id');
+        this.paymentService.getMonth(id)
             .subscribe(month => this.month = month);
     }
     goBack(): void {

@@ -1,6 +1,6 @@
 export class Payment {
     year: number;
-    pos_month: number;
+    id: number;
     name_month: string;
     current_electricity: number;
     prev_electricity: number;

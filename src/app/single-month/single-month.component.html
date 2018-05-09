@@ -12,9 +12,9 @@
     <div class="row justify-content-between">
       <div class="col col-xs-4">
 
-        <a routerLink="/year">
+
           <div (click)="goBack()" class="back"></div>
-        </a>
+
       </div>
       <div class="col col-xs-4">
 
@@ -35,7 +35,7 @@
         </div>
         <div class="col-sm-3 col-xs-6">
           <label class="sr-only" for="prev-gas">Name</label>
-          <input type="text" class="form-control" id="prev-gas" placeholder="Current value">
+          <input  [(ngModel)]="month.prev_gas" name="prev-gas" class="form-control" id="prev-gas" placeholder="Current value">
         </div>
         <div class="col-sm-3 col-xs-6">
           <label class="sr-only" for="next-gas">Name</label>
