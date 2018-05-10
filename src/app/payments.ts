@@ -6,6 +6,7 @@ export class Payment {
     prev_electricity: number;
     current_gas: number;
     prev_gas: number;
+    gas_payment:number;
     current_water: number;
     prev_water: number;
     rent:number;

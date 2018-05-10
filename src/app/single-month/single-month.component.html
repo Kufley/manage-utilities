@@ -36,10 +36,10 @@
           <input [(ngModel)]="month.current_gas" name="current_gas" type="text" class="form-control" id="next-gas" placeholder="Current value">
         </div>
         <div class="col-sm-1 col-xs-6">
-          <span class="icon calc calc-gas"></span>
+          <span class="icon calc  calc-gas" (click)="getGasPayment()"></span>
         </div>
         <div class="col-sm-2 col-xs-6">
-          <span class="price-gas flex justify-content-end align-items-center">110</span>
+          <span class="price-gas flex justify-content-end align-items-center">{{ month.gas_payment  }}</span>
         </div>
       </div>
       <div class="row">
@@ -114,7 +114,7 @@
       </div>
       <div class="row align-items-center">
         <div class="col-sm-6 col-xs-6">
-          <div class="save flex align-items-center">Save</div>
+          <div class="save flex align-items-center" (click)="save()">Save</div>
         </div>
 
         <div class="col-sm-6 col-xs-6">

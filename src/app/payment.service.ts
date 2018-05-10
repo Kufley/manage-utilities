@@ -36,11 +36,13 @@ export class PaymentService {
         const url = `${this.monthsUrl}/${id}`;
         return this.http.get<Payment>(url);
 
-        // const url = `${this.monthsUrl}/${id}`;
-        // return this.http.get<Payment>(url).pipe(
-        //     catchError(this.handleError<Payment>(`getMonth id=${id}`))
-        // );
 
+    }
+
+
+    /** PUT: update the month on the server */
+    updateMonth (month: Payment): Observable<any> {
+        return this.http.put(this.monthsUrl, month, httpOptions);
     }
     /**
      * Handle Http operation that failed.
