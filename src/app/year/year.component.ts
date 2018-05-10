@@ -14,6 +14,8 @@ import { PaymentService } from '../payment.service';
 
   months : Payment[];
 
+  today = Date.now();
+
     constructor(private paymentService: PaymentService) { }
 
     getPayments(): void {

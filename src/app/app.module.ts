@@ -16,7 +16,8 @@ import { InMemoryDataService }  from './in-memory-data.service';
   declarations: [
     AppComponent,
     YearComponent,
-    SingleMonthComponent
+    SingleMonthComponent,
+
   ],
   imports: [
     BrowserModule,

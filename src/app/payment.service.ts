@@ -19,9 +19,18 @@ export class PaymentService {
     getPayments(): Observable<Payment[]> {
         // return this.http.get<Hero[]>(this.heroesUrl)
 
-        return this.http.get<Payment[]>(this.monthsUrl);
+        return this.http.get<Payment[]>(this.monthsUrl).pipe(
+            catchError(this.handleError('getPayments', []))
+        );
     }
+
+    getGasPayment(): Observable<Payment> {
+
+         return this.http.get<Payment>(this.monthsUrl);
+    }
+
     getMonth(id: number): Observable<Payment> {
+
         // return of(PAYMENTS.find(month => month.id === id));
 
         const url = `${this.monthsUrl}/${id}`;

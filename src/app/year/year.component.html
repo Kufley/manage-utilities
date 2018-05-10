@@ -6,7 +6,7 @@
     </div>
     <div class="col col-xs-4">
 
-      <div class="year">2018</div>
+      <div class="year">{{ today | date:"yyyy"}}</div>
     </div>
     <div class="col col-xs-4">
 
@@ -92,7 +92,7 @@
 
       <div *ngFor="let month of months" routerLink="/month/{{month.id}}" class=" col-sm-3 col-xs-6">
         <div class="month">
-          <div class="name"><a href="#">{{month.name_month}}</a></div>
+          <div class="name">{{month.name_month}}</div>
           <div class="price-for-month"></div>
         </div>
       </div>
@@ -147,6 +147,5 @@
     </div>
   </main>
 </div>
-<app-single-month [month]="selectedMonth"></app-single-month>
 
 

@@ -13,6 +13,10 @@
     color: #fff;
 
 }
+.col-sm-3:hover,
+.col-sm-3:focus {
+    outline: none
+}
 
 .prev, .next, .back {
     width: 30px;

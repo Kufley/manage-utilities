@@ -1,12 +1,6 @@
 
 <div *ngIf="month">
 
-  <!--<h2>{{ month.name_month | uppercase }} Details</h2>-->
-  <!--<div>-->
-    <!--<label>name:-->
-      <!--<input [(ngModel)]="month.name_month" placeholder="name">-->
-    <!--</label>-->
-  <!--</div>-->
 
   <div class="container">
     <div class="row justify-content-between">
@@ -35,11 +29,11 @@
         </div>
         <div class="col-sm-3 col-xs-6">
           <label class="sr-only" for="prev-gas">Name</label>
-          <input  [(ngModel)]="month.prev_gas" name="prev-gas" class="form-control" id="prev-gas" placeholder="Current value">
+          <input  [(ngModel)]="month.prev_gas" type="text" name="prev-gas" class="form-control" id="prev-gas" placeholder="Previous value">
         </div>
         <div class="col-sm-3 col-xs-6">
           <label class="sr-only" for="next-gas">Name</label>
-          <input type="text" class="form-control" id="next-gas" placeholder="Previous value">
+          <input [(ngModel)]="month.current_gas" name="current_gas" type="text" class="form-control" id="next-gas" placeholder="Current value">
         </div>
         <div class="col-sm-1 col-xs-6">
           <span class="icon calc calc-gas"></span>
@@ -57,11 +51,11 @@
         </div>
         <div class="col-sm-3 col-xs-6">
           <label class="sr-only" for="prev-electric">Name</label>
-          <input type="text" class="form-control" id="prev-electric" placeholder="Current value">
+          <input [(ngModel)]="month.prev_electricity" name="prev_electricity" type="text" class="form-control" id="prev-electric" placeholder="Previous value">
         </div>
         <div class="col-sm-3 col-xs-6">
           <label class="sr-only" for="next-electric">Name</label>
-          <input type="text" class="form-control" id="next-electric" placeholder="Previous value">
+          <input [(ngModel)]="month.current_electricity" name="current_electricity" type="text" class="form-control" id="next-electric" placeholder="Current value">
         </div>
         <div class="col-sm-1 col-xs-6">
           <span class="icon calc calc-electric"></span>
@@ -79,11 +73,11 @@
         </div>
         <div class="col-sm-3 col-xs-6">
           <label class="sr-only" for="prev-water">Name</label>
-          <input type="text" class="form-control" id="prev-water" placeholder="Current value">
+          <input [(ngModel)]="month.prev_water" name="prev_water" type="text" class="form-control" id="prev-water" placeholder="Previous value">
         </div>
         <div class="col-sm-3 col-xs-6">
           <label class="sr-only" for="next-water">Name</label>
-          <input type="text" class="form-control" id="next-water" placeholder="Previous value">
+          <input [(ngModel)]="month.current_water" name="current_water" type="text" class="form-control" id="next-water" placeholder="Current value">
         </div>
         <div class="col-sm-1 col-xs-6">
           <span class="icon calc calc-water"></span>
@@ -101,7 +95,7 @@
         </div>
         <div class="col-sm-3 col-xs-6">
           <label class="sr-only" for="rent">Name</label>
-          <input type="text" class="form-control" id="rent" placeholder="Monthly price">
+          <input  [(ngModel)]="month.rent" type="text" name="rent" class="form-control" id="rent" placeholder="Monthly price">
         </div>
 
 
