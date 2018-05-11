@@ -93,7 +93,7 @@
       <div *ngFor="let month of months" routerLink="/month/{{month.id}}" class=" col-sm-3 col-xs-6">
         <div class="month">
           <div class="name">{{month.name_month}}</div>
-          <div class="price-for-month"></div>
+          <div class="price-for-month">{{month.fixed[0].payment_fixed + month.variable[0].payment_variable + month.variable[1].payment_variable + month.variable[2].payment_variable}}</div>
         </div>
       </div>
     </div>

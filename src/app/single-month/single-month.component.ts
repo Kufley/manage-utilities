@@ -15,7 +15,6 @@ export class SingleMonthComponent implements OnInit {
   @Input() month: Payment;
 
 
-    public gas_payment;
     constructor(
         private route: ActivatedRoute,
         private paymentService: PaymentService,
@@ -36,10 +35,27 @@ export class SingleMonthComponent implements OnInit {
 
         const id = +this.route.snapshot.paramMap.get('id');
         this.paymentService.getMonth(id).subscribe(
-        current => {this.gas_payment = (current.current_gas - current.prev_gas) * 1.50; console.log(this.gas_payment )},
+        current => {this.month.variable[0].payment_variable = (this.month.variable[0].current_variable - this.month.variable[0].prev_variable) * 1.50; }
+        );
+    }
+    getElectricityPayment() {
+
+        const id = +this.route.snapshot.paramMap.get('id');
+        this.paymentService.getMonth(id).subscribe(
+            current => {this.month.variable[1].payment_variable = (this.month.variable[1].current_variable - this.month.variable[1].prev_variable) * 1.50; }
 
         );
     }
+
+    getWaterPayment() {
+
+        const id = +this.route.snapshot.paramMap.get('id');
+        this.paymentService.getMonth(id).subscribe(
+            current => {this.month.variable[2].payment_variable = (this.month.variable[3].current_variable - this.month.variable[4].prev_variable) * 1.50; }
+
+        );
+    }
+
 
     goBack(): void {
         this.location.back();
@@ -47,7 +63,7 @@ export class SingleMonthComponent implements OnInit {
 
     save(): void {
         this.paymentService.updateMonth(this.month)
-            .subscribe(() => this.goBack());
+            .subscribe(() => this.save());
     }
 
 

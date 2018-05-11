@@ -1,13 +1,10 @@
+import { fixedUtilities } from './fixedUtilities';
+import { variableUtilities } from './variableUtilities';
+
 export class Payment {
-    year: number;
     id: number;
+    year: number;
     name_month: string;
-    current_electricity: number;
-    prev_electricity: number;
-    current_gas: number;
-    prev_gas: number;
-    gas_payment:number;
-    current_water: number;
-    prev_water: number;
-    rent:number;
+    fixed: fixedUtilities[];
+    variable: variableUtilities[];
 }

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
 import { Payment } from '../payments';
-import { PAYMENTS } from '../mock-payments';
 
 import { PaymentService } from '../payment.service';
 

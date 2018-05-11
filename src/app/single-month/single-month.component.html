@@ -29,17 +29,17 @@
         </div>
         <div class="col-sm-3 col-xs-6">
           <label class="sr-only" for="prev-gas">Name</label>
-          <input  [(ngModel)]="month.prev_gas" type="text" name="prev-gas" class="form-control" id="prev-gas" placeholder="Previous value">
+          <input  [(ngModel)]="month.variable[0].prev_variable" type="text" name="prev-gas" class="form-control" id="prev-gas" placeholder="Previous value">
         </div>
         <div class="col-sm-3 col-xs-6">
           <label class="sr-only" for="next-gas">Name</label>
-          <input [(ngModel)]="month.current_gas" name="current_gas" type="text" class="form-control" id="next-gas" placeholder="Current value">
+          <input [(ngModel)]="month.variable[0].current_variable" name="current_gas" type="text" class="form-control" id="next-gas" placeholder="Current value">
         </div>
         <div class="col-sm-1 col-xs-6">
           <span class="icon calc  calc-gas" (click)="getGasPayment()"></span>
         </div>
         <div class="col-sm-2 col-xs-6">
-          <span class="price-gas flex justify-content-end align-items-center">{{ month.gas_payment  }}</span>
+          <span class="price-gas flex justify-content-end align-items-center"><input  [(ngModel)]="month.variable[0].payment_variable" type="text" name="total-for-gas" class="form-control"></span>
         </div>
       </div>
       <div class="row">
@@ -51,17 +51,17 @@
         </div>
         <div class="col-sm-3 col-xs-6">
           <label class="sr-only" for="prev-electric">Name</label>
-          <input [(ngModel)]="month.prev_electricity" name="prev_electricity" type="text" class="form-control" id="prev-electric" placeholder="Previous value">
+          <input [(ngModel)]="month.variable[1].prev_variable" name="prev_electricity" type="text" class="form-control" id="prev-electric" placeholder="Previous value">
         </div>
         <div class="col-sm-3 col-xs-6">
           <label class="sr-only" for="next-electric">Name</label>
-          <input [(ngModel)]="month.current_electricity" name="current_electricity" type="text" class="form-control" id="next-electric" placeholder="Current value">
+          <input [(ngModel)]="month.variable[1].current_variable" name="current_electricity" type="text" class="form-control" id="next-electric" placeholder="Current value">
         </div>
         <div class="col-sm-1 col-xs-6">
-          <span class="icon calc calc-electric"></span>
+          <span class="icon calc calc-electric" (click)="getElectricityPayment()"></span>
         </div>
         <div class="col-sm-2 col-xs-6">
-          <span class="price-electric flex justify-content-end align-items-center">110</span>
+          <span class="price-electric flex justify-content-end align-items-center"><input  [(ngModel)]="month.variable[1].payment_variable" type="text" name="total-for-electricity" class="form-control"></span>
         </div>
       </div>
       <div class="row">
@@ -73,17 +73,17 @@
         </div>
         <div class="col-sm-3 col-xs-6">
           <label class="sr-only" for="prev-water">Name</label>
-          <input [(ngModel)]="month.prev_water" name="prev_water" type="text" class="form-control" id="prev-water" placeholder="Previous value">
+          <input [(ngModel)]="month.variable[2].prev_variable" name="prev_water" type="text" class="form-control" id="prev-water" placeholder="Previous value">
         </div>
         <div class="col-sm-3 col-xs-6">
           <label class="sr-only" for="next-water">Name</label>
-          <input [(ngModel)]="month.current_water" name="current_water" type="text" class="form-control" id="next-water" placeholder="Current value">
+          <input [(ngModel)]="month.variable[2].current_variable" name="current_water" type="text" class="form-control" id="next-water" placeholder="Current value">
         </div>
         <div class="col-sm-1 col-xs-6">
-          <span class="icon calc calc-water"></span>
+          <span class="icon calc calc-water" (click)="getWaterPayment()"></span>
         </div>
         <div class="col-sm-2 col-xs-6">
-          <span class="price-water flex justify-content-end align-items-center">110</span>
+          <span class="price-water flex justify-content-end align-items-center"><input [(ngModel)]="month.variable[2].payment_variable" type="text" name="total-for-water" class="form-control"></span>
         </div>
       </div>
       <div class="row">
@@ -95,12 +95,12 @@
         </div>
         <div class="col-sm-3 col-xs-6">
           <label class="sr-only" for="rent">Name</label>
-          <input  [(ngModel)]="month.rent" type="text" name="rent" class="form-control" id="rent" placeholder="Monthly price">
+          <input  [(ngModel)]="month.fixed[0].payment_fixed" type="text" name="rent" class="form-control" id="rent" placeholder="Monthly price">
         </div>
 
 
         <div class="col-sm-2 offset-sm-4 col-xs-6">
-          <span class="price-rent flex justify-content-end align-items-center">110</span>
+          <span class="price-rent flex justify-content-end align-items-center">{{month.fixed[0].payment_fixed}}</span>
         </div>
       </div>
       <div class="row">
@@ -109,7 +109,9 @@
           <span>1 month</span>
         </div>
         <div class="col-sm-2 col-xs-6 total-for-month ">
-          <div class="flex justify-content-end">6458.50</div>
+          <div class="flex justify-content-end">
+            <input  [(ngModel)]="month.fixed[0].payment_fixed + month.variable[0].payment_variable + month.variable[1].payment_variable + month.variable[2].payment_variable" type="text" name="total-for-month" class="form-control">
+          </div>
         </div>
       </div>
       <div class="row align-items-center">
