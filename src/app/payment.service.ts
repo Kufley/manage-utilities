@@ -15,9 +15,10 @@ export class PaymentService {
     private monthsUrl = 'api/payments';  // URL to web api
     constructor( private http: HttpClient) { }
 
-    getPayments(): Observable<Payment[]> {
+    getPayments(year: number): Observable<Payment[]> {
 
-        return this.http.get<Payment[]>(this.monthsUrl);
+        const url = `${this.monthsUrl}/?year=${year}`;
+        return this.http.get<Payment[]>(url);
     }
 
     getMonth(id: number): Observable<Payment> {
@@ -31,6 +32,10 @@ export class PaymentService {
     /** PUT: update the month on the server */
     updateMonth (month: Payment): Observable<any> {
         return this.http.put(this.monthsUrl, month, httpOptions);
+    }
+    /** POST: add a new hero to the server */
+    addPayment (payment: Payment): Observable<Payment> {
+        return this.http.post<Payment>(this.monthsUrl, payment, httpOptions);
     }
     ///**
     // * Handle Http operation that failed.
