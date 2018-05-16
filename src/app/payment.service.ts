@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Payment } from './payments';
+import { Months } from './arrMonth';
 import { Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs/operators';
@@ -13,6 +14,8 @@ const httpOptions = {
 export class PaymentService {
 
     private monthsUrl = 'api/payments';  // URL to web api
+
+    private monthUrl = 'api/months';  // URL to web api
     constructor( private http: HttpClient) { }
 
     getPayments(year: number): Observable<Payment[]> {
@@ -21,14 +24,27 @@ export class PaymentService {
         return this.http.get<Payment[]>(url);
     }
 
-    getMonth(id: number): Observable<Payment> {
+    getPayment(id: number, year: number): Observable<Payment> {
 
-        const url = `${this.monthsUrl}/${id}`;
+        const url = `${this.monthsUrl}/?id=${id}&year=${year}`;
         return this.http.get<Payment>(url);
 
 
     }
+    getMonths(): Observable<Months[]> {
 
+        const url = `${this.monthUrl}`;
+        return this.http.get<Months[]>(url);
+    }
+    getMonth(idMonth:number): Observable<Months> {
+
+        const url = `${this.monthUrl}/?idMonth=${idMonth}`;
+        return this.http.get<Months>(url);
+    }
+    //getPayment(idmonth: number,idyear: number): Observable<Payment> {
+    //    const url = `${this.monthsUrl}/?idyear=${idyear}&idmonth=${idmonth}`;
+    //    return this.http.get<Payment>(url);
+    //}
     /** PUT: update the month on the server */
     updateMonth (month: Payment): Observable<any> {
         return this.http.put(this.monthsUrl, month, httpOptions);

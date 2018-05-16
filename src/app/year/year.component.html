@@ -6,7 +6,7 @@
     </div>
     <div class="col col-xs-4">
 
-      <div class="year">{{ today | date:"yyyy"}}</div>
+      <div class="year">{{ todayYear}}</div>
     </div>
     <div class="col col-xs-4">
 
@@ -90,22 +90,32 @@
       <!--</div>-->
       <!--</div>-->
 
-      <div *ngFor="let month of months" routerLink="/year/{{month.year}}/month/{{month.id}}" class=" col-sm-3 col-xs-6">
+      <div *ngFor="let month of months" class=" col-sm-3 col-xs-6">
         <div class="month">
-          <div class="name">{{month.name_month}}</div>
-          <div class="price-for-month">{{month.fixed[0].payment_fixed + month.variable[0].payment_variable + month.variable[1].payment_variable + month.variable[2].payment_variable}}</div>
+        <div class="name">{{month.name_month}}</div>
+        <div *ngFor="let payment of payments" routerLink="/year/{{payment.year}}/month/{{month.idMonth}}/payment/{{payment.id}}">
+          <div *ngIf="payment.id == month.idMonth && payment.year == todayYear" class="price-for-month">{{payment.fixed[0].payment_fixed + payment.variable[0].payment_variable + payment.variable[1].payment_variable + payment.variable[2].payment_variable}}</div>
+
+        </div>
+          <div *ngIf="month.idMonth == todayMonth + 1" class="add"></div>
+
         </div>
       </div>
+
+
+      <!--<div *ngFor="let payment of payments" routerLink="/year/{{payment.year}}/payment/{{payment.id}}" class=" col-sm-3 col-xs-6">-->
+        <!--<div class="month">-->
+          <!--<div class="name">{{payment.name_month}}</div>-->
+          <!--<div class="price-for-month">{{payment.fixed[0].payment_fixed + payment.variable[0].payment_variable + payment.variable[1].payment_variable + payment.variable[2].payment_variable}}</div>-->
+        <!--</div>-->
+      <!--</div>-->
       <div class=" col-sm-3 col-xs-6">
-        <label>Hero name:
-          <input #heroName />
-        </label>
-        <!-- (click) passes input value to add() and then clears the input -->
-        <button (click)="add(heroName.value); heroName.value=''">
+
+        <button (click)="add()">
           add
         </button>
       </div>
-    </div>
+      </div>
     <div class="row">
 
 

@@ -3,16 +3,33 @@ import { InMemoryDbService } from 'angular-in-memory-web-api';
 
 export class InMemoryDataService implements InMemoryDbService {
     createDb() {
+       const months= [
+            { 'idMonth' :1 , 'name_month':'Jan'},
+            { 'idMonth' :2 , 'name_month':'Feb'},
+            { 'idMonth' :3 , 'name_month':'Mar'},
+            { 'idMonth' :4 , 'name_month':'Apr'},
+            { 'idMonth' :5 , 'name_month':'May'},
+            { 'idMonth' :6 , 'name_month':'Jun'},
+            { 'idMonth' :7 , 'name_month':'Jul'},
+            { 'idMonth' :8 , 'name_month':'Aug'},
+            { 'idMonth' :9 , 'name_month':'Sep'},
+            { 'idMonth' :10 , 'name_month':'Oct'},
+            { 'idMonth' :11 , 'name_month':'Mov'},
+            { 'idMonth' :12 , 'name_month':'Dec'}
+
+        ];
+
+
         const payments = [
-            {id: 1, year: 2018, name_month: 'Jan',
+            {id: 1, year: 2018,
               fixed: [{ name_fixed:'rent', payment_fixed: 210}],
               variable:[
                   {name_variable :'electricity', current_variable: 210, prev_variable: 120, payment_variable: 210},
                   {name_variable :'gas', current_variable: 210, prev_variable: 120, payment_variable: 210},
-                  {name_variable :'water', current_variable: 210, prev_variable: 120, payment_variable: 210}
+                  {name_variable :'water', current_variable: 210, prev_variable: 120, payment_variable: 110}
               ]
             },
-            {id: 2, year: 2018, name_month: 'Feb',
+            {id: 2, year: 2018,
                 fixed: [{ name_fixed:'rent', payment_fixed: 210}],
                 variable:[
                     {name_variable :'electricity', current_variable: 210, prev_variable: 120, payment_variable: 210},
@@ -20,7 +37,7 @@ export class InMemoryDataService implements InMemoryDbService {
                     {name_variable :'water', current_variable: 210, prev_variable: 120, payment_variable: 210}
                 ]
             },
-            {id: 3, year: 2018, name_month: 'Mar',
+            {id: 3, year: 2018,
                 fixed: [{ name_fixed:'rent', payment_fixed: 210}],
                 variable:[
                     {name_variable :'electricity', current_variable: 210, prev_variable: 120, payment_variable: 210},
@@ -28,14 +45,14 @@ export class InMemoryDataService implements InMemoryDbService {
                     {name_variable :'water', current_variable: 210, prev_variable: 120, payment_variable: 210}
                 ]
             },
-            {id: 4, year: 2018, name_month: 'Apl',
+            {id: 4, year: 2018,
                 fixed: [{ name_fixed:'rent', payment_fixed: 210}],
                 variable:[
                     {name_variable :'electricity', current_variable: 210, prev_variable: 120, payment_variable: 210},
                     {name_variable :'gas', current_variable: 210, prev_variable: 120, payment_variable: 210},
                     {name_variable :'water', current_variable: 210, prev_variable: 120, payment_variable: 210}
                 ]
-            },
+            }
             //{id: 5, year: 2018, name_month: 'May',
             //    fixed: [{ name_fixed:'rent', payment_fixed: 210}],
             //    variable:[
@@ -130,6 +147,7 @@ export class InMemoryDataService implements InMemoryDbService {
             //{year: 2018, id: 12, name_month: 'Dec', current_electricity: 40,prev_electricity: 60,electricity_payment:0, current_gas: 100, prev_gas: 60,gas_payment:0, current_water: 100, prev_water: 40,water_payment:0, rent:2700},
 
         ];
-        return {payments};
+        return {payments, months};
+
     }
 }

@@ -5,6 +5,8 @@ import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
 import { PaymentService } from '../payment.service';
+import {Months} from "../arrMonth";
+
 @Component({
   selector: 'app-single-month',
   templateUrl: './single-month.component.html',
@@ -12,8 +14,9 @@ import { PaymentService } from '../payment.service';
 })
 export class SingleMonthComponent implements OnInit {
 
-  @Input() month: Payment;
-
+  @Input() payment: Payment;
+  @Input() month: Months;
+  //payments : Payment[];
 
     constructor(
         private route: ActivatedRoute,
@@ -22,27 +25,72 @@ export class SingleMonthComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
+        this.getPayment();
         this.getMonth();
     }
 
-    getMonth(): void {
+    getPayment(): void {
         const id = +this.route.snapshot.paramMap.get('id');
-        this.paymentService.getMonth(id)
-            .subscribe(month => this.month = month);
-    }
+        const year = +this.route.snapshot.paramMap.get('year');
 
+        this.paymentService.getPayment(id, year)
+            .subscribe(payment => {this.payment = payment;});
+    }
+    getMonth(): void {
+        const id = +this.route.snapshot.paramMap.get('idMonth');
+
+        this.paymentService.getMonth(id)
+            .subscribe(month => {this.month = month; console.log(this.month)});
+    }
+    //add(id: number, year: number): void {
+    //    const newPayment =  {id: id, year: year,
+    //        fixed: [{ name_fixed:'rent', payment_fixed: 0}],
+    //        variable:[
+    //            {name_variable :'electricity', current_variable: 0, prev_variable: 0, payment_variable: 0},
+    //            {name_variable :'gas', current_variable: 0, prev_variable: 0, payment_variable: 0},
+    //            {name_variable :'water', current_variable: 0, prev_variable: 0, payment_variable: 0}
+    //        ]
+    //    };
+    //
+    //    this.paymentService.addPayment((newPayment) as Payment)
+    //        .subscribe(payment => this.payments.push(payment));
+    //
+    //}
+
+
+    //getPayment(): void {
+    //    const id = +this.route.snapshot.paramMap.get('id');
+    //    const year = +this.route.snapshot.paramMap.get('year');
+    //    if(id!=0 && year!=0){
+    //
+    //        this.paymentService.getPayment(id, year)
+    //            .subscribe(payment => {
+    //                this.payment = payment; console.log(this.payment);
+    //                if((this.payment===undefined)){
+    //
+    //                        this.add(id,year);
+    //                        this.getPayment();
+    //                    }
+    //
+    //            });
+    //    }
+    //}
     getGasPayment() {
 
         const id = +this.route.snapshot.paramMap.get('id');
-        this.paymentService.getMonth(id).subscribe(
-        current => {this.month.variable[0].payment_variable = (this.month.variable[0].current_variable - this.month.variable[0].prev_variable) * 1.50; }
+        const year = +this.route.snapshot.paramMap.get('year');
+
+        this.paymentService.getPayment(id, year).subscribe(
+        current => {this.payment.variable[0].payment_variable = (this.payment.variable[0].current_variable - this.payment.variable[0].prev_variable) * 1.50; }
         );
     }
     getElectricityPayment() {
 
         const id = +this.route.snapshot.paramMap.get('id');
-        this.paymentService.getMonth(id).subscribe(
-            current => {this.month.variable[1].payment_variable = (this.month.variable[1].current_variable - this.month.variable[1].prev_variable) * 1.50; }
+        const year = +this.route.snapshot.paramMap.get('year');
+
+        this.paymentService.getPayment(id, year).subscribe(
+            current => {this.payment.variable[1].payment_variable = (this.payment.variable[1].current_variable - this.payment.variable[1].prev_variable) * 1.50; }
 
         );
     }
@@ -50,8 +98,9 @@ export class SingleMonthComponent implements OnInit {
     getWaterPayment() {
 
         const id = +this.route.snapshot.paramMap.get('id');
-        this.paymentService.getMonth(id).subscribe(
-            current => {this.month.variable[2].payment_variable = (this.month.variable[3].current_variable - this.month.variable[4].prev_variable) * 1.50; }
+        const year = +this.route.snapshot.paramMap.get('year');
+        this.paymentService.getPayment(id, year).subscribe(
+            current => {this.payment.variable[2].payment_variable = (this.payment.variable[3].current_variable - this.payment.variable[4].prev_variable) * 1.50; }
 
         );
     }
@@ -62,7 +111,7 @@ export class SingleMonthComponent implements OnInit {
     }
 
     save(): void {
-        this.paymentService.updateMonth(this.month)
+        this.paymentService.updateMonth(this.payment)
             .subscribe(() => this.save());
     }
 
