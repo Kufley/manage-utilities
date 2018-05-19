@@ -16,7 +16,7 @@ export class SingleMonthComponent implements OnInit {
 
   @Input() payment: Payment;
   @Input() month: Months;
-  //payments : Payment[];
+  payments : Payment[];
 
     constructor(
         private route: ActivatedRoute,
@@ -30,11 +30,11 @@ export class SingleMonthComponent implements OnInit {
     }
 
     getPayment(): void {
-        const id = +this.route.snapshot.paramMap.get('id');
+        const id = +this.route.snapshot.paramMap.get('month');
         const year = +this.route.snapshot.paramMap.get('year');
 
         this.paymentService.getPayment(id, year)
-            .subscribe(payment => {this.payment = payment;});
+            .subscribe(payment => {this.payment = payment[0];});
     }
     getMonth(): void {
         const id = +this.route.snapshot.paramMap.get('idMonth');
@@ -75,18 +75,18 @@ export class SingleMonthComponent implements OnInit {
     //            });
     //    }
     //}
-    getGasPayment() {
+    getElectricityPayment() {
 
-        const id = +this.route.snapshot.paramMap.get('id');
+        const id = +this.route.snapshot.paramMap.get('month');
         const year = +this.route.snapshot.paramMap.get('year');
 
         this.paymentService.getPayment(id, year).subscribe(
         current => {this.payment.variable[0].payment_variable = (this.payment.variable[0].current_variable - this.payment.variable[0].prev_variable) * 1.50; }
         );
     }
-    getElectricityPayment() {
+    getGasPayment() {
 
-        const id = +this.route.snapshot.paramMap.get('id');
+        const id = +this.route.snapshot.paramMap.get('month');
         const year = +this.route.snapshot.paramMap.get('year');
 
         this.paymentService.getPayment(id, year).subscribe(
@@ -97,10 +97,10 @@ export class SingleMonthComponent implements OnInit {
 
     getWaterPayment() {
 
-        const id = +this.route.snapshot.paramMap.get('id');
+        const id = +this.route.snapshot.paramMap.get('month');
         const year = +this.route.snapshot.paramMap.get('year');
         this.paymentService.getPayment(id, year).subscribe(
-            current => {this.payment.variable[2].payment_variable = (this.payment.variable[3].current_variable - this.payment.variable[4].prev_variable) * 1.50; }
+            current => {this.payment.variable[2].payment_variable = (this.payment.variable[2].current_variable - this.payment.variable[2].prev_variable) * 1.50; }
 
         );
     }
@@ -110,9 +110,10 @@ export class SingleMonthComponent implements OnInit {
         this.location.back();
     }
 
-    save(): void {
-        this.paymentService.updateMonth(this.payment)
-            .subscribe(() => this.save());
+    save(payment: Payment): void {
+        this.payment=payment;
+        //console.log(this.payment);
+        this.paymentService.updatePayment(payment).subscribe();
     }
 
 

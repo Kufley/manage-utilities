@@ -24,9 +24,9 @@ export class PaymentService {
         return this.http.get<Payment[]>(url);
     }
 
-    getPayment(id: number, year: number): Observable<Payment> {
+    getPayment(month: number, year: number): Observable<Payment> {
 
-        const url = `${this.monthsUrl}/?id=${id}&year=${year}`;
+        const url = `${this.monthsUrl}/?month=${month}&year=${year}`;
         return this.http.get<Payment>(url);
 
 
@@ -46,11 +46,14 @@ export class PaymentService {
     //    return this.http.get<Payment>(url);
     //}
     /** PUT: update the month on the server */
-    updateMonth (month: Payment): Observable<any> {
-        return this.http.put(this.monthsUrl, month, httpOptions);
+    updatePayment (payment: Payment): Observable<any> {
+
+        return this.http.put(this.monthsUrl, payment, httpOptions);
     }
     /** POST: add a new hero to the server */
     addPayment (payment: Payment): Observable<Payment> {
+        //console.log(payment);
+
         return this.http.post<Payment>(this.monthsUrl, payment, httpOptions);
     }
     ///**

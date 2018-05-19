@@ -31,10 +31,12 @@ import { PaymentService } from '../payment.service';
 
     getPayments(): void {
 
-      const year = +this.route.snapshot.paramMap.get('year');
+      const idYear = +this.route.snapshot.paramMap.get('year');
       //const id = +this.route.snapshot.paramMap.get('id');
-      this.paymentService.getPayments(year).subscribe(payments => {this.payments = payments;}
+      this.paymentService.getPayments(idYear).subscribe(payments => {this.payments = payments;}
+
       );
+
     }
   getMonths(): void {
       this.paymentService.getMonths().subscribe(months => {this.months = months;}
@@ -71,20 +73,19 @@ import { PaymentService } from '../payment.service';
   //        });
   //  }
   //}
-  //add(id: number, year: number): void {
-  //  const newPayment =  {id: id, year: year,
-  //        fixed: [{ name_fixed:'rent', payment_fixed: 0}],
-  //        variable:[
-  //          {name_variable :'electricity', current_variable: 0, prev_variable: 0, payment_variable: 0},
-  //          {name_variable :'gas', current_variable: 0, prev_variable: 0, payment_variable: 0},
-  //          {name_variable :'water', current_variable: 0, prev_variable: 0, payment_variable: 0}
-  //        ]
-  //      }
-  //
-  //  this.paymentService.addPayment((newPayment) as Payment)
-  //      .subscribe(payment => this.payments.push(payment));
-  //
-  //}
+  add(id: number, year: number): void {
+    const newPayment =  {month: id, year: year,
+          fixed: [{ name_fixed:'rent', payment_fixed: 0}],
+          variable:[
+            {name_variable :'electricity', current_variable: 0, prev_variable: 0, payment_variable: 0},
+            {name_variable :'gas', current_variable: 0, prev_variable: 0, payment_variable: 0},
+            {name_variable :'water', current_variable: 0, prev_variable: 0, payment_variable: 0}
+          ]
+        };
+    this.paymentService.addPayment((newPayment) as Payment)
+        .subscribe(payment => this.payments.push(payment));
+
+  }
 
   ngOnInit() {
       this.getPayments();

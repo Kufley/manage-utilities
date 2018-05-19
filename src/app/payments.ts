@@ -7,7 +7,8 @@ import { variableUtilities } from './variableUtilities';
 //
 //}
 export class Payment {
-    id: number;
+    id:number;
+    month: number;
     year: number;
     fixed: fixedUtilities[];
     variable: variableUtilities[];
