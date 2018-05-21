@@ -76,6 +76,9 @@ main {
     padding: 8px;
     border-bottom: 1px solid #D1D1D1;
 
+}.name.pay{
+   background-color:#f1f1f1;
+
 }
 .name a{
     color: #8B8B8B;

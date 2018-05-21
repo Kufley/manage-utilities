@@ -74,7 +74,7 @@ import { PaymentService } from '../payment.service';
   //  }
   //}
   add(id: number, year: number): void {
-    const newPayment =  {month: id, year: year,
+    const newPayment =  {month: id, year: year, saveStatus: 0,
           fixed: [{ name_fixed:'rent', payment_fixed: 0}],
           variable:[
             {name_variable :'electricity', current_variable: 0, prev_variable: 0, payment_variable: 0},
@@ -86,14 +86,15 @@ import { PaymentService } from '../payment.service';
         .subscribe(payment => {this.payments.push(payment);} );
 
 
+
   }
   changePaymentStatus(month: number){
       console.log(this.months);
       for (let i = 0; i <= this.months.length - 1; i++){
           if(this.months[i].idMonth == month){
               console.log(this.months[i].paymentStatus);
-              this.months[i].paymentStatus == true;
-              this.paymentService.updateMonth(this.months[i]).subscribe();
+              this.months[i].paymentStatus = true;
+              this.paymentService.updateMonth(this.months[i]).subscribe(update => this.months[i].paymentStatus = update);
 
               console.log(this.months[i].paymentStatus);
           }

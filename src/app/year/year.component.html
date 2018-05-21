@@ -92,19 +92,18 @@
 
       <div *ngFor="let month of months" class=" col-sm-3 col-xs-6">
 
-        <!--<div class="month" [ngClass]="[type === 'mybutton' ? namespace + '-mybutton' : '']">-->
-        <div class="name">{{month.name_month}}</div>
-        <div *ngFor="let payment of payments" routerLink="/year/{{payment.year}}/payment/{{payment.month}}">
-          <div *ngIf="payment.month == month.idMonth && payment.year == todayYear" class="price-for-month">{{+payment.fixed[0].payment_fixed + +payment.variable[0].payment_variable + +payment.variable[1].payment_variable + +payment.variable[2].payment_variable}}
+        <div class="month" [ngClass]="[month.idMonth == todayMonth + 1 || month.idMonth == todayMonth + 2 ? 'active' : month.paymentStatus == false ? 'disable' :  '']">
+        <div class="name" [ngClass]="[month.idMonth == todayMonth + 1 ?  'current-month'  : month.paymentStatus == true ? 'pay' : '']">{{month.name_month}}</div>
+        <div *ngFor="let payment of payments" >
+          <div *ngIf="payment.month == month.idMonth && payment.year == todayYear" routerLink="/year/{{payment.year}}/payment/{{payment.month}}" class="price-for-month">{{+payment.fixed[0].payment_fixed + +payment.variable[0].payment_variable + +payment.variable[1].payment_variable + +payment.variable[2].payment_variable}}
 
 
           </div>
         </div>
-          {{ month.paymentStatus }}
           <div *ngIf="(month.idMonth == todayMonth + 1 || month.idMonth == todayMonth + 2) && month.paymentStatus == false"  (click)="add(month.idMonth, todayYear); changePaymentStatus(month.idMonth);" class="add"></div>
         
       </div>
-
+</div>
 
       <!--<div *ngFor="let payment of payments" routerLink="/year/{{payment.year}}/payment/{{payment.id}}" class=" col-sm-3 col-xs-6">-->
         <!--<div class="month">-->
