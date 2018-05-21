@@ -10,6 +10,7 @@ export class Payment {
     id:number;
     month: number;
     year: number;
+    saveStatus: number;
     fixed: fixedUtilities[];
     variable: variableUtilities[];
 }

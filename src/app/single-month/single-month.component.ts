@@ -110,8 +110,9 @@ export class SingleMonthComponent implements OnInit {
         this.location.back();
     }
 
-    save(payment: Payment): void {
+    save(payment: Payment, saveStatus: number): void {
         this.payment=payment;
+        this.payment.saveStatus = saveStatus;
         //console.log(this.payment);
         this.paymentService.updatePayment(payment).subscribe();
     }

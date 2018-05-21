@@ -287,6 +287,9 @@ button[type="submit"] {
     white-space: nowrap;
     border: 0;
 }
+.price-for-month + .add{
+    display: none;
+}
 
 @media all and (max-width: 575px) {
     .col-xs-6{

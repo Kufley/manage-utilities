@@ -83,13 +83,39 @@ import { PaymentService } from '../payment.service';
           ]
         };
     this.paymentService.addPayment((newPayment) as Payment)
-        .subscribe(payment => this.payments.push(payment));
+        .subscribe(payment => {this.payments.push(payment);} );
+
 
   }
+  changePaymentStatus(month: number){
+      console.log(this.months);
+      for (let i = 0; i <= this.months.length - 1; i++){
+          if(this.months[i].idMonth == month){
+              console.log(this.months[i].paymentStatus);
+              this.months[i].paymentStatus == true;
+              this.paymentService.updateMonth(this.months[i]).subscribe();
+
+              console.log(this.months[i].paymentStatus);
+          }
+      }
+  }
+
+    checkActive(monthId: number): boolean {
+        let res = false;
+        for (let i = 0; i <= this.months.length; i++){
+            if (this.payments[i].month == monthId || this.payments[i].year == this.todayYear){
+                res = true;
+            }
+            console.log(res);
+        }
+
+        return res;
+    }
 
   ngOnInit() {
       this.getPayments();
       this.getMonths();
+
 
   }
 

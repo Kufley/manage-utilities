@@ -1,5 +1,5 @@
 
-<div *ngIf="payment">
+<div *ngIf="payment || month">
   
   <div class="container">
     <div class="row justify-content-between">
@@ -11,7 +11,7 @@
       </div>
       <div class="col col-xs-4">
 
-        <div class="month-heading"></div>
+        <div class="month-heading">{{month.name_month}}</div>
       </div>
       <div class="col col-xs-4">
 
@@ -113,14 +113,15 @@
           </div>
         </div>
       </div>
-      <div class="row align-items-center">
+      <div class="row align-items-center" *ngIf="payment.saveStatus == 0">
         <div class="col-sm-6 col-xs-6">
-          <div class="save flex align-items-center" (click)="save(payment)">Save</div>
+
+          <div class="save flex align-items-center" (click)="save(payment, 0)">Save</div>
         </div>
 
         <div class="col-sm-6 col-xs-6">
           <div class="submit flex justify-content-end">
-            <button type="submit">Confirm</button>
+            <button type="submit" (click)="save(payment, 1)">Confirm</button>
           </div>
         </div>
       </div>

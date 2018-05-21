@@ -50,6 +50,9 @@ export class PaymentService {
 
         return this.http.put(this.monthsUrl, payment, httpOptions);
     }
+    updateMonth (month: Months): Observable<any> {
+        return this.http.put(this.monthUrl, month, httpOptions);
+    }
     /** POST: add a new hero to the server */
     addPayment (payment: Payment): Observable<Payment> {
         //console.log(payment);
