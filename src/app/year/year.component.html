@@ -94,8 +94,8 @@
 
         <div class="month" [ngClass]="[month.idMonth == todayMonth + 1 || month.idMonth == todayMonth + 2 ? 'active' : month.paymentStatus == false ? 'disable' :  '']">
         <div class="name" [ngClass]="[month.idMonth == todayMonth + 1 ?  'current-month'  : month.paymentStatus == true ? 'pay' : '']">{{month.name_month}}</div>
-        <div *ngFor="let payment of payments" >
-          <div *ngIf="payment.month == month.idMonth && payment.year == todayYear" routerLink="/year/{{payment.year}}/payment/{{payment.month}}" class="price-for-month">{{+payment.fixed[0].payment_fixed + +payment.variable[0].payment_variable + +payment.variable[1].payment_variable + +payment.variable[2].payment_variable}}
+        <div *ngFor="let payment of payments">
+          <div *ngIf="payment.month == month.idMonth && payment.year == todayYear" routerLink="/year/{{payment.year}}/month/{{month.idMonth}}/payment/{{payment.month}}" class="price-for-month">{{+payment.fixed[0].payment_fixed + +payment.variable[0].payment_variable + +payment.variable[1].payment_variable + +payment.variable[2].payment_variable}}
 
 
           </div>

@@ -89,7 +89,7 @@ import { PaymentService } from '../payment.service';
 
   }
   changePaymentStatus(month: number){
-      console.log(this.months);
+
       for (let i = 0; i <= this.months.length - 1; i++){
           if(this.months[i].idMonth == month){
               console.log(this.months[i].paymentStatus);

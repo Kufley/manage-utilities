@@ -37,10 +37,9 @@ export class SingleMonthComponent implements OnInit {
             .subscribe(payment => {this.payment = payment[0];});
     }
     getMonth(): void {
-        const id = +this.route.snapshot.paramMap.get('idMonth');
-
+        const id = +this.route.snapshot.paramMap.get('month');
         this.paymentService.getMonth(id)
-            .subscribe(month => {this.month = month; console.log(this.month)});
+            .subscribe(month => {this.month = month[0]});
     }
     //add(id: number, year: number): void {
     //    const newPayment =  {id: id, year: year,
