@@ -33,13 +33,6 @@
       </div>
 </div>
 
-      <!--<div *ngFor="let payment of payments" routerLink="/year/{{payment.year}}/payment/{{payment.id}}" class=" col-sm-3 col-xs-6">-->
-        <!--<div class="month">-->
-          <!--<div class="name">{{payment.name_month}}</div>-->
-          <!--<div class="price-for-month">{{payment.fixed[0].payment_fixed + payment.variable[0].payment_variable + payment.variable[1].payment_variable + payment.variable[2].payment_variable}}</div>-->
-        <!--</div>-->
-      <!--</div>-->
-
       </div>
     <div class="row">
 
@@ -58,14 +51,14 @@
                 <span class="icon gas"></span>
                 <span class="name-utility">Gas</span>
               </div>
-              <div class="price-for-year">420</div>
+              <div class="price-for-year">{{sumGas}}</div>
             </div>
             <div class="col-sm-3 col-xs-6">
               <div class="flex align-items-center">
                 <span class="icon electric"></span>
                 <span class="name-utility">Electricity</span>
               </div>
-              <div class="price-for-year">???</div>
+              <div class="price-for-year">{{sumElectricity}}</div>
             </div>
             <div class="col-sm-3 col-xs-6">
               <div class="flex align-items-center">

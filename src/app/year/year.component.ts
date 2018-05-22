@@ -21,6 +21,8 @@ export class YearComponent implements OnInit {
     todayMonth = new Date().getMonth();
     todayYear = new Date().getFullYear();
     year = new Date().getFullYear();
+    sumElectricity: number;
+    sumGas: number;
 
 
     getYear():void {
@@ -48,13 +50,36 @@ export class YearComponent implements OnInit {
         const idYear = +this.route.snapshot.paramMap.get('year');
 
         this.paymentService.getPayments(idYear).subscribe(
+
             payments => {
                 this.payments = payments;
-                let sum = 0;
+                let sumElectricity = 0;
 
                 for (let i = 0; i <= this.payments.length - 1; i++) {
-                    sum += this.payments[i].variable[0].payment_variable;
+                    sumElectricity += this.payments[i].variable[0].payment_variable;
                 }
+
+                this.sumElectricity = sumElectricity;
+            }
+        );
+
+
+    }
+    getGas() {
+
+        const idYear = +this.route.snapshot.paramMap.get('year');
+
+        this.paymentService.getPayments(idYear).subscribe(
+
+            payments => {
+                this.payments = payments;
+                let sumGas = 0;
+
+                for (let i = 0; i <= this.payments.length - 1; i++) {
+                    sumGas += this.payments[i].variable[1].payment_variable;
+                }
+
+                this.sumGas = sumGas;
             }
         );
 
@@ -120,6 +145,7 @@ export class YearComponent implements OnInit {
         this.getPayments();
         this.getMonths();
         this.getElectricity();
+        this.getGas();
 
     }
 
