@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Location } from '@angular/common';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {Location} from '@angular/common';
 
-import { Payment } from '../payments';
-import { Months } from '../arrMonth';
+import {Payment} from '../payments';
+import {Months} from '../arrMonth';
 
-import { PaymentService } from '../payment.service';
+import {PaymentService} from '../payment.service';
 
 @Component({
     selector: 'app-year',
@@ -14,8 +14,8 @@ import { PaymentService } from '../payment.service';
 })
 export class YearComponent implements OnInit {
 
-    payments:Payment[];
-    months:Months[];
+    payments: Payment[];
+    months: Months[];
 
     today = Date.now();
     todayMonth = new Date().getMonth();
@@ -23,19 +23,22 @@ export class YearComponent implements OnInit {
     year = new Date().getFullYear();
     sumElectricity: number;
     sumGas: number;
+    sumWater: number;
+    sumRent: number;
+    sumTotal: number;
 
 
-    getYear():void {
+    getYear(): void {
         const idYear = +this.route.snapshot.paramMap.get('year');
         console.log(idYear);
     }
 
 
-    constructor(private route:ActivatedRoute,
-                private paymentService:PaymentService) {
+    constructor(private route: ActivatedRoute,
+                private paymentService: PaymentService) {
     }
 
-    getPayments():void {
+    getPayments(): void {
 
         const idYear = +this.route.snapshot.paramMap.get('year');
         this.paymentService.getPayments(idYear).subscribe(payments => {
@@ -50,7 +53,6 @@ export class YearComponent implements OnInit {
         const idYear = +this.route.snapshot.paramMap.get('year');
 
         this.paymentService.getPayments(idYear).subscribe(
-
             payments => {
                 this.payments = payments;
                 let sumElectricity = 0;
@@ -65,12 +67,12 @@ export class YearComponent implements OnInit {
 
 
     }
+
     getGas() {
 
         const idYear = +this.route.snapshot.paramMap.get('year');
 
         this.paymentService.getPayments(idYear).subscribe(
-
             payments => {
                 this.payments = payments;
                 let sumGas = 0;
@@ -86,14 +88,77 @@ export class YearComponent implements OnInit {
 
     }
 
-    getMonths():void {
+    getWater() {
+
+        const idYear = +this.route.snapshot.paramMap.get('year');
+
+        this.paymentService.getPayments(idYear).subscribe(
+            payments => {
+                this.payments = payments;
+                let sumWater = 0;
+
+                for (let i = 0; i <= this.payments.length - 1; i++) {
+                    sumWater += this.payments[i].variable[2].payment_variable;
+                }
+
+                this.sumWater = sumWater;
+            }
+        );
+
+
+    }
+
+    getRent() {
+
+        const idYear = +this.route.snapshot.paramMap.get('year');
+
+        this.paymentService.getPayments(idYear).subscribe(
+            payments => {
+                this.payments = payments;
+                let sumRent = 0;
+
+                for (let i = 0; i <= this.payments.length - 1; i++) {
+                    sumRent += this.payments[i].fixed[0].payment_fixed;
+                }
+
+                this.sumRent = sumRent;
+            }
+        );
+
+
+    }
+
+    getTotal() {
+
+        const idYear = +this.route.snapshot.paramMap.get('year');
+
+        this.paymentService.getPayments(idYear).subscribe(
+            payments => {
+                this.payments = payments;
+                let sumTotal = 0;
+
+                for (let i = 0; i <= this.payments.length - 1; i++) {
+                    sumTotal += this.payments[i].fixed[0].payment_fixed +
+                                this.payments[i].variable[2].payment_variable +
+                                this.payments[i].variable[1].payment_variable +
+                                this.payments[i].variable[0].payment_variable;
+                }
+
+                this.sumTotal = sumTotal;
+            }
+        );
+
+
+    }
+
+    getMonths(): void {
         this.paymentService.getMonths().subscribe(months => {
                 this.months = months;
             }
         );
     }
 
-    add(id:number, year:number):void {
+    add(id: number, year: number): void {
         const newPayment = {
             month: id, year: year, saveStatus: 0,
             fixed: [{name_fixed: 'rent', payment_fixed: 0}],
@@ -111,7 +176,7 @@ export class YearComponent implements OnInit {
 
     }
 
-    changePaymentStatus(month:number) {
+    changePaymentStatus(month: number) {
 
         for (let i = 0; i <= this.months.length - 1; i++) {
             if (this.months[i].idMonth == month) {
@@ -124,7 +189,7 @@ export class YearComponent implements OnInit {
         }
     }
 
-    checkActive(monthId:number):boolean {
+    checkActive(monthId: number): boolean {
         let res = false;
         for (let i = 0; i <= this.months.length; i++) {
             if (this.payments[i].month == monthId || this.payments[i].year == this.todayYear) {
@@ -146,6 +211,9 @@ export class YearComponent implements OnInit {
         this.getMonths();
         this.getElectricity();
         this.getGas();
+        this.getWater();
+        this.getRent();
+        this.getTotal();
 
     }
 

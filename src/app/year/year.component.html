@@ -39,7 +39,7 @@
 
       <div class="col">
         <div class="total-price">
-          <div class="heading-total">Total: <span>10345.50</span></div>
+          <div class="heading-total">Total: <span>{{sumTotal}}</span></div>
 
           <div class="heading-total">Expenses by type:</div>
         </div>
@@ -65,7 +65,7 @@
                 <span class="icon water"></span>
                 <span class="name-utility">Water</span>
               </div>
-              <div class="price-for-year">420</div>
+              <div class="price-for-year">{{sumWater}}</div>
 
             </div>
             <div class="col-sm-3 col-xs-6">
@@ -73,7 +73,7 @@
                 <span class="icon rent"></span>
                 <span class="name-utility">Home rent</span>
               </div>
-              <div class="price-for-year">420</div>
+              <div class="price-for-year">{{sumRent}}</div>
 
             </div>
           </div>
