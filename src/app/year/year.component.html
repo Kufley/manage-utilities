@@ -2,100 +2,28 @@
 <div class="container">
   <div class="row justify-content-between">
     <div class="col col-xs-4">
-      <div class="prev"></div>
+      <div class="prev"  routerLink="/year/{{year - 1}}" (click)="changeYear(); year = year - 1"></div>
     </div>
     <div class="col col-xs-4">
 
-      <div class="year">{{ todayYear}}</div>
+      <!--<div class="year">{{ todayYear}}</div>-->
+      <input [ngModel] ="year" class="name-year" name="year">
     </div>
     <div class="col col-xs-4">
 
-      <div class="next"></div>
+      <div class="next"  routerLink="/year/{{year + 1}}"  (click)="changeYear(); year = year + 1"></div>
     </div>
   </div>
   <main>
     <div class="row justify-content-between">
-      <!--<div class="col-sm-3 col-xs-6">-->
-      <!--<div class="month">-->
-      <!--<div class="name"><a href="month.html">Jan</a></div>-->
-      <!--<div class="price-for-month">1020</div>-->
-      <!--</div>-->
-      <!--</div>-->
-      <!--<div class=" col-sm-3 col-xs-6">-->
-      <!--<div class="month">-->
-      <!--<div class="name">Feb</div>-->
-      <!--<div class="price-for-month">1020</div>-->
-      <!--</div>-->
-      <!--</div>-->
-      <!--<div class=" col-sm-3 col-xs-6">-->
-      <!--<div class="month">-->
-      <!--<div class="name">Mar</div>-->
-      <!--<div class="price-for-month">1020</div>-->
-      <!--</div>-->
-      <!--</div>-->
-      <!--<div class=" col-sm-3 col-xs-6">-->
-      <!--<div class="month active">-->
-      <!--<div class="name current-month">Apr</div>-->
-      <!--<div class="price-for-month edit">520</div>-->
-      <!--</div>-->
-      <!--</div>-->
 
-      <!--<div class=" col-sm-3 col-xs-6">-->
-      <!--<div class="month active">-->
-      <!--<div class="name">May</div>-->
-      <!--<div class="add"></div>-->
-      <!--</div>-->
-      <!--</div>-->
-      <!--<div class=" col-sm-3 col-xs-6">-->
-      <!--<div class="month disable">-->
-      <!--<div class="name">Jun</div>-->
-      <!--<div class="price-for-month"></div>-->
-      <!--</div>-->
-      <!--</div>-->
-      <!--<div class=" col-sm-3 col-xs-6">-->
-      <!--<div class="month disable">-->
-      <!--<div class="name">Jul</div>-->
-      <!--<div class="price-for-month"></div>-->
-      <!--</div>-->
-      <!--</div>-->
-      <!--<div class=" col-sm-3 col-xs-6">-->
-      <!--<div class="month disable">-->
-      <!--<div class="name">Aug</div>-->
-      <!--<div class="price-for-month"></div>-->
-      <!--</div>-->
-      <!--</div>-->
-
-      <!--<div class=" col-sm-3 col-xs-6">-->
-      <!--<div class="month disable">-->
-      <!--<div class="name">Sep</div>-->
-      <!--<div class="price-for-month"></div>-->
-      <!--</div>-->
-      <!--</div>-->
-      <!--<div class="col-sm-3 col-xs-6">-->
-      <!--<div class="month disable">-->
-      <!--<div class="name">Oct</div>-->
-      <!--<div class="price-for-month"></div>-->
-      <!--</div>-->
-      <!--</div>-->
-      <!--<div class=" col-sm-3 col-xs-6">-->
-      <!--<div class="month disable">-->
-      <!--<div class="name">Nov</div>-->
-      <!--<div class="price-for-month"></div>-->
-      <!--</div>-->
-      <!--</div>-->
-      <!--<div class=" col-sm-3 col-xs-6">-->
-      <!--<div class="month disable">-->
-      <!--<div class="name">Dec</div>-->
-      <!--<div class="price-for-month"></div>-->
-      <!--</div>-->
-      <!--</div>-->
 
       <div *ngFor="let month of months" class=" col-sm-3 col-xs-6">
 
         <div class="month" [ngClass]="[month.idMonth == todayMonth + 1 || month.idMonth == todayMonth + 2 ? 'active' : month.paymentStatus == false ? 'disable' :  '']">
         <div class="name" [ngClass]="[month.idMonth == todayMonth + 1 ?  'current-month'  : month.paymentStatus == true ? 'pay' : '']">{{month.name_month}}</div>
         <div *ngFor="let payment of payments">
-          <div *ngIf="payment.month == month.idMonth && payment.year == todayYear" routerLink="/year/{{payment.year}}/month/{{month.idMonth}}/payment/{{payment.month}}" class="price-for-month">{{+payment.fixed[0].payment_fixed + +payment.variable[0].payment_variable + +payment.variable[1].payment_variable + +payment.variable[2].payment_variable}}
+          <div *ngIf="payment.month == month.idMonth" routerLink="/year/{{payment.year}}/month/{{month.idMonth}}/payment/{{payment.month}}" class="price-for-month">{{+payment.fixed[0].payment_fixed + +payment.variable[0].payment_variable + +payment.variable[1].payment_variable + +payment.variable[2].payment_variable}}
 
 
           </div>
@@ -137,7 +65,7 @@
                 <span class="icon electric"></span>
                 <span class="name-utility">Electricity</span>
               </div>
-              <div class="price-for-year">420</div>
+              <div class="price-for-year">???</div>
             </div>
             <div class="col-sm-3 col-xs-6">
               <div class="flex align-items-center">

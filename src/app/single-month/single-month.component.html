@@ -113,7 +113,7 @@
           </div>
         </div>
       </div>
-      <div class="row align-items-center" *ngIf="payment.saveStatus == 0">
+      <div class="row align-items-center" *ngIf="payment.saveStatus == 0 else close_payment">
         <div class="col-sm-6 col-xs-6">
 
           <div class="save flex align-items-center" (click)="save(payment, 0)">Save</div>
@@ -125,6 +125,9 @@
           </div>
         </div>
       </div>
+      <ng-template #close_payment>
+        <h3 class="text-center">Payment is closed</h3>
+      </ng-template>
     </form>
 
   </div>

@@ -22,7 +22,8 @@
     width: 30px;
     height: 30px;
     cursor: pointer;
-    margin-top: 21px;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .back {
@@ -49,7 +50,18 @@
 main {
     padding: 0 30px 40px;
 }
-
+.name-year:focus{
+    background: transparent;
+    outline: none;
+}
+.name-year{
+    border: 0;
+    background-color: transparent;
+    color: #fff;
+    font-size: 24px;
+    text-align: center;
+    height:100%;
+}
 .month {
     background: #fff;
     padding-bottom: 10px;
