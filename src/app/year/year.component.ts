@@ -7,6 +7,7 @@ import {Months} from '../arrMonth';
 
 import {PaymentService} from '../payment.service';
 import { Pipe, PipeTransform } from '@angular/core';
+import {forEach} from "@angular/router/src/utils/collection";
 
 @Component({
     selector: 'app-year',
@@ -17,7 +18,6 @@ export class YearComponent implements OnInit {
 
     payments: Payment[];
     months: Months[];
-
     today = Date.now();
     todayMonth = new Date().getMonth();
     todayYear = new Date().getFullYear();
@@ -27,19 +27,7 @@ export class YearComponent implements OnInit {
     sumWater: number;
     sumRent: number;
     sumTotal: number;
-    checkYear: number;
-    res: boolean;
-    lastPayment: number;
-
-
-
-
-
-    getYear(): void {
-        const idYear = +this.route.snapshot.paramMap.get('year');
-
-    }
-
+    addPaymentVisible : boolean;
 
     constructor(private route: ActivatedRoute,
                 private paymentService: PaymentService) {
@@ -50,6 +38,7 @@ export class YearComponent implements OnInit {
         const idYear = +this.route.snapshot.paramMap.get('year');
         this.paymentService.getPayments(idYear).subscribe(payments => {
                 this.payments = payments;
+                this.checkNeedAdd();
             }
         );
     }
@@ -164,62 +153,46 @@ export class YearComponent implements OnInit {
         );
     }
 
-    add(id: number, year: number): void {
+    add(month: number, year: number): void {
+        let lastPayment = this.payments[this.payments.length - 1];
         const newPayment = {
-            month: id, year: year, saveStatus: 0,
-            fixed: [{name_fixed: 'rent', payment_fixed: 0}],
+            month: month, year: year, saveStatus: 0,
+            fixed: [{name_fixed: 'rent', payment_fixed: 2700}],
             variable: [
-                {name_variable: 'electricity', current_variable: 0, prev_variable: 0, payment_variable: 0},
-                {name_variable: 'gas', current_variable: 0, prev_variable: 0, payment_variable: 0},
-                {name_variable: 'water', current_variable: 0, prev_variable: 0, payment_variable: 0}
+                {name_variable: 'electricity', current_variable: 0, prev_variable: lastPayment.variable[0].current_variable, payment_variable: 0},
+                {name_variable: 'gas', current_variable: 0, prev_variable: lastPayment.variable[1].current_variable, payment_variable: 0},
+                {name_variable: 'water', current_variable: 0, prev_variable: lastPayment.variable[2].current_variable, payment_variable: 0}
             ]
         };
+        // this.paymentService.addPayment((newPayment) as Payment)
+        //     .subscribe(payment => {
+        //             this.payments.push(payment);
+        //     });
         this.paymentService.addPayment((newPayment) as Payment)
-            .subscribe(payment => {
-                    this.payments.push(payment);
-            });
-        //this.paymentService.addPayment((newPayment) as Payment)
-        //    .subscribe(payment => {
-        //        let lastPayment = this.payments[this.payments.length - 1];
-        //        console.log(lastPayment.month);
-        //        if(lastPayment.month != this.todayMonth + 1){
-        //            this.payments.push(payment);
-        //            this.lastPayment = 1;
-        //        }  else {
-        //            this.lastPayment = 0;
-        //        }
-        //
-        //    });
+           .subscribe(payment => {
+               if(lastPayment.month != this.todayMonth + 1){
+                   this.payments.push(payment);
+               }
+               console.log(this.payments);
+
+               this.checkNeedAdd();
+           });
 
 
 
     }
 
-    //changePaymentStatus(month: number) {
-    //
-    //    for (let i = 0; i <= this.months.length - 1; i++) {
-    //        if (this.months[i].idMonth == month) {
-    //            this.months[i].paymentStatus = true;
-    //            this.paymentService.updateMonth(this.months[i]).subscribe(update => this.months[i].paymentStatus = update);
-    //
-    //        }
-    //    }
-    //}
-    //
-    //checkActive(monthId: number): void {
-    //    let res;
-    //    for (let i = 0; i <= this.payments.length - 1; i++) {
-    //        if (this.payments[i].month == monthId || this.payments[i].year == this.todayYear) {
-    //            res = this.payments[i].saveStatus;
-    //
-    //        }
-    //        this.res = res;
-    //
-    //        //console.log(checkYear);
-    //    }
-    //
-    //
-    //}
+    checkNeedAdd(): void{
+        let res = true;
+
+        for(var i=0; i<this.payments.length; i++){
+            if (this.payments[i].month == this.todayMonth + 1 || this.payments[i].year != this.todayYear){
+                res = false;
+            }
+        }
+
+        this.addPaymentVisible = res;
+    }
 
     changeYear() {
         this.getPayments();
@@ -234,7 +207,5 @@ export class YearComponent implements OnInit {
         this.getWater();
         this.getRent();
         this.getTotal();
-
     }
-
 }
