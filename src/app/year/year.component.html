@@ -14,7 +14,7 @@
         </div>
     </div>
     <main>
-        <div class="row justify-content-between">
+        <div class="row justify-content-start">
 
             <div *ngFor="let payment of payments" class="col-sm-3 col-xs-6">
                 <div class="month" routerLink="/year/{{payment.year}}/payment/{{payment.month}}">
@@ -30,9 +30,22 @@
 
             <div class="col-sm-3 col-xs-6">
                 <div class="month" *ngIf="addPaymentVisible">
-                    <div class="name">{{today | date:'MMM'}}</div>
+                    <div class="name">{{todayMonth + 1 | month}}</div>
 
                     <div class="add" (click)="add(todayMonth + 1, todayYear);">
+
+
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div class="col-sm-3 col-xs-6">
+                <div class="month" *ngIf="addPaymentNextVisible">
+                    <div class="name">{{todayMonth + 2 | month}}</div>
+
+                    <div class="add" (click)="add(todayMonth + 2, todayYear);">
 
 
                     </div>

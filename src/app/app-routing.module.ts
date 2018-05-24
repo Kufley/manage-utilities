@@ -6,7 +6,7 @@ import { SingleMonthComponent } from "./single-month/single-month.component";
 
 
 const routes: Routes = [
-    { path: '', redirectTo: '/year:year', pathMatch: 'full' },
+    { path: '', redirectTo: '/year:', pathMatch: 'full' },
     //{ path: 'year/year', component: YearComponent },
     { path: 'year/:year', component: YearComponent },
     { path: 'year/:year/payment/:month', component: SingleMonthComponent },

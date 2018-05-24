@@ -21,13 +21,16 @@ export class YearComponent implements OnInit {
     today = Date.now();
     todayMonth = new Date().getMonth();
     todayYear = new Date().getFullYear();
-    year = new Date().getFullYear();
+    year = this.todayYear;
     sumElectricity: number;
     sumGas: number;
     sumWater: number;
     sumRent: number;
     sumTotal: number;
     addPaymentVisible : boolean;
+    addPaymentNextVisible : boolean;
+    minYear: number;
+    maxYear: number;
 
     constructor(private route: ActivatedRoute,
                 private paymentService: PaymentService) {
@@ -35,17 +38,18 @@ export class YearComponent implements OnInit {
 
     getPayments(): void {
 
-        const idYear = +this.route.snapshot.paramMap.get('year');
+        const idYear = this.year;
         this.paymentService.getPayments(idYear).subscribe(payments => {
                 this.payments = payments;
                 this.checkNeedAdd();
+                this.checkNeedAddNextMonth();
             }
         );
     }
 
     getElectricity() {
 
-        const idYear = +this.route.snapshot.paramMap.get('year');
+        const idYear = this.year;
 
         this.paymentService.getPayments(idYear).subscribe(
             payments => {
@@ -65,7 +69,7 @@ export class YearComponent implements OnInit {
 
     getGas() {
 
-        const idYear = +this.route.snapshot.paramMap.get('year');
+        const idYear = this.year;
 
         this.paymentService.getPayments(idYear).subscribe(
             payments => {
@@ -85,7 +89,7 @@ export class YearComponent implements OnInit {
 
     getWater() {
 
-        const idYear = +this.route.snapshot.paramMap.get('year');
+        const idYear = this.year;
 
         this.paymentService.getPayments(idYear).subscribe(
             payments => {
@@ -105,7 +109,7 @@ export class YearComponent implements OnInit {
 
     getRent() {
 
-        const idYear = +this.route.snapshot.paramMap.get('year');
+        const idYear = this.year;
 
         this.paymentService.getPayments(idYear).subscribe(
             payments => {
@@ -125,7 +129,7 @@ export class YearComponent implements OnInit {
 
     getTotal() {
 
-        const idYear = +this.route.snapshot.paramMap.get('year');
+        const idYear = this.year;
 
         this.paymentService.getPayments(idYear).subscribe(
             payments => {
@@ -134,9 +138,9 @@ export class YearComponent implements OnInit {
 
                 for (let i = 0; i <= this.payments.length - 1; i++) {
                     sumTotal += this.payments[i].fixed[0].payment_fixed +
-                                this.payments[i].variable[2].payment_variable +
-                                this.payments[i].variable[1].payment_variable +
-                                this.payments[i].variable[0].payment_variable;
+                        this.payments[i].variable[2].payment_variable +
+                        this.payments[i].variable[1].payment_variable +
+                        this.payments[i].variable[0].payment_variable;
                 }
 
                 this.sumTotal = sumTotal;
@@ -152,6 +156,26 @@ export class YearComponent implements OnInit {
             }
         );
     }
+
+
+    // refreshMinMaxYear(): void {
+    //     this.paymentService.getPaymentsAll().subscribe(payments => {
+    //             let paymentsAll = payments;
+    //
+    //             if (paymentsAll.length > 0){
+    //                 var minVal = paymentsAll[0];
+    //                 var maxVal = paymentsAll[0];
+    //
+    //                 for (let i=0; i<paymentsAll.length; i++){
+    //                     // if (minVal < paymentsAll[i].year){
+    //                     //     minVal = paymentsAll[i].year;
+    //                     // }
+    //
+    //                 }
+    //             }
+    //         }
+    //     );
+    // }
 
     add(month: number, year: number): void {
         let lastPayment = this.payments[this.payments.length - 1];
@@ -169,21 +193,21 @@ export class YearComponent implements OnInit {
         //             this.payments.push(payment);
         //     });
         this.paymentService.addPayment((newPayment) as Payment)
-           .subscribe(payment => {
-               if(lastPayment.month != this.todayMonth + 1){
-                   this.payments.push(payment);
-               }
-               console.log(this.payments);
+            .subscribe(payment => {
+                if(lastPayment.month != this.todayMonth + 1 || lastPayment.month != this.todayMonth + 2){
+                    this.payments.push(payment);
+                }
 
-               this.checkNeedAdd();
-           });
+                this.checkNeedAdd();
+                this.checkNeedAddNextMonth();
+            });
 
 
 
     }
 
     checkNeedAdd(): void{
-        let res = true;
+        let res = this.payments.length > 0 ? true : false;
 
         for(var i=0; i<this.payments.length; i++){
             if (this.payments[i].month == this.todayMonth + 1 || this.payments[i].year != this.todayYear){
@@ -194,12 +218,27 @@ export class YearComponent implements OnInit {
         this.addPaymentVisible = res;
     }
 
+
+    checkNeedAddNextMonth(): void{
+        let res = this.payments.length > 0 ? true : false;
+
+        for(var i=0; i<this.payments.length; i++){
+            if (this.payments[i].month == this.todayMonth + 2 || this.payments[i].year != this.todayYear){
+                res = false;
+            }
+        }
+
+        this.addPaymentNextVisible = res;
+    }
+
     changeYear() {
         this.getPayments();
         this.getMonths();
     }
 
     ngOnInit() {
+        this.year = +this.route.snapshot.paramMap.get('year');
+
         this.getPayments();
         this.getMonths();
         this.getElectricity();

@@ -12,7 +12,7 @@ export class MonthPipe implements PipeTransform {
       case 3: return "Mar";
       case 4: return "Apl";
       case 5: return "May";
-      case 6: return "Jul";
+      case 6: return "Jun";
     }
   }
 
