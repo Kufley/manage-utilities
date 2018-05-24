@@ -6,6 +6,7 @@ import {Payment} from '../payments';
 import {Months} from '../arrMonth';
 
 import {PaymentService} from '../payment.service';
+import { Pipe, PipeTransform } from '@angular/core';
 
 @Component({
     selector: 'app-year',
@@ -26,11 +27,17 @@ export class YearComponent implements OnInit {
     sumWater: number;
     sumRent: number;
     sumTotal: number;
+    checkYear: number;
+    res: boolean;
+    lastPayment: number;
+
+
+
 
 
     getYear(): void {
         const idYear = +this.route.snapshot.paramMap.get('year');
-        console.log(idYear);
+
     }
 
 
@@ -45,7 +52,6 @@ export class YearComponent implements OnInit {
                 this.payments = payments;
             }
         );
-
     }
 
     getElectricity() {
@@ -170,36 +176,50 @@ export class YearComponent implements OnInit {
         };
         this.paymentService.addPayment((newPayment) as Payment)
             .subscribe(payment => {
-                this.payments.push(payment);
+                    this.payments.push(payment);
             });
+        //this.paymentService.addPayment((newPayment) as Payment)
+        //    .subscribe(payment => {
+        //        let lastPayment = this.payments[this.payments.length - 1];
+        //        console.log(lastPayment.month);
+        //        if(lastPayment.month != this.todayMonth + 1){
+        //            this.payments.push(payment);
+        //            this.lastPayment = 1;
+        //        }  else {
+        //            this.lastPayment = 0;
+        //        }
+        //
+        //    });
+
 
 
     }
 
-    changePaymentStatus(month: number) {
-
-        for (let i = 0; i <= this.months.length - 1; i++) {
-            if (this.months[i].idMonth == month) {
-                console.log(this.months[i].paymentStatus);
-                this.months[i].paymentStatus = true;
-                this.paymentService.updateMonth(this.months[i]).subscribe(update => this.months[i].paymentStatus = update);
-
-                console.log(this.months[i].paymentStatus);
-            }
-        }
-    }
-
-    checkActive(monthId: number): boolean {
-        let res = false;
-        for (let i = 0; i <= this.months.length; i++) {
-            if (this.payments[i].month == monthId || this.payments[i].year == this.todayYear) {
-                res = true;
-            }
-            console.log(res);
-        }
-
-        return res;
-    }
+    //changePaymentStatus(month: number) {
+    //
+    //    for (let i = 0; i <= this.months.length - 1; i++) {
+    //        if (this.months[i].idMonth == month) {
+    //            this.months[i].paymentStatus = true;
+    //            this.paymentService.updateMonth(this.months[i]).subscribe(update => this.months[i].paymentStatus = update);
+    //
+    //        }
+    //    }
+    //}
+    //
+    //checkActive(monthId: number): void {
+    //    let res;
+    //    for (let i = 0; i <= this.payments.length - 1; i++) {
+    //        if (this.payments[i].month == monthId || this.payments[i].year == this.todayYear) {
+    //            res = this.payments[i].saveStatus;
+    //
+    //        }
+    //        this.res = res;
+    //
+    //        //console.log(checkYear);
+    //    }
+    //
+    //
+    //}
 
     changeYear() {
         this.getPayments();

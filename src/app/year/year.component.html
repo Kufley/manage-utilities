@@ -1,88 +1,115 @@
-
 <div class="container">
-  <div class="row justify-content-between">
-    <div class="col col-xs-4">
-      <div class="prev"  routerLink="/year/{{year - 1}}" (click)="changeYear(); year = year - 1"></div>
-    </div>
-    <div class="col col-xs-4">
-
-      <!--<div class="year">{{ todayYear}}</div>-->
-      <input [ngModel] ="year" class="name-year" name="year">
-    </div>
-    <div class="col col-xs-4">
-
-      <div class="next"  routerLink="/year/{{year + 1}}"  (click)="changeYear(); year = year + 1"></div>
-    </div>
-  </div>
-  <main>
     <div class="row justify-content-between">
-
-
-      <div *ngFor="let month of months" class=" col-sm-3 col-xs-6">
-
-        <div class="month" [ngClass]="[month.idMonth == todayMonth + 1 || month.idMonth == todayMonth + 2 ? 'active' : month.paymentStatus == false ? 'disable' :  '']">
-        <div class="name" [ngClass]="[month.idMonth == todayMonth + 1 ?  'current-month'  : month.paymentStatus == true ? 'pay' : '']">{{month.name_month}}</div>
-        <div *ngFor="let payment of payments">
-          <div *ngIf="payment.month == month.idMonth" routerLink="/year/{{payment.year}}/month/{{month.idMonth}}/payment/{{payment.month}}" class="price-for-month">{{+payment.fixed[0].payment_fixed + +payment.variable[0].payment_variable + +payment.variable[1].payment_variable + +payment.variable[2].payment_variable}}
-
-
-          </div>
+        <div class="col col-xs-4">
+            <div class="prev" (click)="year = year - 1; changeYear();" routerLink="/year/{{year - 1}}"></div>
         </div>
-          <div *ngIf="(month.idMonth == todayMonth + 1 || month.idMonth == todayMonth + 2) && month.paymentStatus == false"  (click)="add(month.idMonth, todayYear); changePaymentStatus(month.idMonth);" class="add"></div>
-        
-      </div>
-</div>
+        <div class="col col-xs-4">
 
-      </div>
-    <div class="row">
-
-
-      <div class="col">
-        <div class="total-price">
-          <div class="heading-total">Total: <span>{{sumTotal}}</span></div>
-
-          <div class="heading-total">Expenses by type:</div>
+            <!--<div class="year">{{ todayYear}}</div>-->
+            <input [ngModel]="year" class="name-year" name="year">
         </div>
+        <div class="col col-xs-4">
 
-        <div class="total-body">
-          <div class="row justify-content-between">
-            <div class="col-sm-3 col-xs-6">
-              <div class="flex align-items-center">
-                <span class="icon gas"></span>
-                <span class="name-utility">Gas</span>
-              </div>
-              <div class="price-for-year">{{sumGas}}</div>
-            </div>
-            <div class="col-sm-3 col-xs-6">
-              <div class="flex align-items-center">
-                <span class="icon electric"></span>
-                <span class="name-utility">Electricity</span>
-              </div>
-              <div class="price-for-year">{{sumElectricity}}</div>
-            </div>
-            <div class="col-sm-3 col-xs-6">
-              <div class="flex align-items-center">
-                <span class="icon water"></span>
-                <span class="name-utility">Water</span>
-              </div>
-              <div class="price-for-year">{{sumWater}}</div>
-
-            </div>
-            <div class="col-sm-3 col-xs-6">
-              <div class="flex align-items-center">
-                <span class="icon rent"></span>
-                <span class="name-utility">Home rent</span>
-              </div>
-              <div class="price-for-year">{{sumRent}}</div>
-
-            </div>
-          </div>
+            <div class="next" (click)="year = year + 1; changeYear();" routerLink="/year/{{year + 1}}"></div>
         </div>
-
-      </div>
-
     </div>
-  </main>
+    <main>
+        <div class="row justify-content-between">
+
+
+            <!--<div *ngFor="let month of months" class=" col-sm-3 col-xs-6">-->
+
+                <!--<div class="month"-->
+                     <!--[ngClass]="[month.idMonth == todayMonth + 1 || month.idMonth == todayMonth + 2 ? 'active' : month.paymentStatus == false ? 'disable' :  '']">-->
+                    <!--&lt;!&ndash;<div class="name"&ndash;&gt;-->
+                         <!--[ngClass]="[month.idMonth == todayMonth + 1 ?  'current-month'  : month.paymentStatus == true ? 'pay' : '']">-->
+                        <!--{{month.name_month}}-->
+                    <!--</div>-->
+                    <div *ngFor="let payment of payments"  class="col-sm-3 col-xs-6">
+                        <div class="month" routerLink="/year/{{payment.year}}/payment/{{payment.month}}">
+                            <div class="name">{{payment.month | month}}</div>
+
+                            <div class="price-for-month">
+                            {{+payment.fixed[0].payment_fixed +
+                            +payment.variable[0].payment_variable + +payment.variable[1].payment_variable +
+                            +payment.variable[2].payment_variable}}</div>
+
+
+                        </div>
+
+
+                    </div>
+            <div class="col-sm-3 col-xs-6">
+                <div class="month" *ngIf="(todayMonth + 1 || todayMonth + 2)">
+                    <div class="name">{{today | date:'MMM'}}</div>
+
+                    <div class="add" (click)="add(todayMonth + 1, todayYear);">
+
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+                    <!--<div *ngIf="(month.idMonth == todayMonth + 1 || month.idMonth == todayMonth + 2) && checkYear !== todayYear && (res == undefined)"-->
+                         <!--(click)="add(month.idMonth, todayYear);checkActive(month.idMonth)"-->
+                         <!--class="add"></div>-->
+
+                <!--</div>-->
+            </div>
+
+        <!--</div>-->
+        <div class="row">
+
+
+            <div class="col">
+                <div class="total-price">
+                    <div class="heading-total">Total: <span>{{sumTotal}}</span></div>
+
+                    <div class="heading-total">Expenses by type:</div>
+                </div>
+
+                <div class="total-body">
+                    <div class="row justify-content-between">
+                        <div class="col-sm-3 col-xs-6">
+                            <div class="flex align-items-center">
+                                <span class="icon gas"></span>
+                                <span class="name-utility">Gas</span>
+                            </div>
+                            <div class="price-for-year">{{sumGas}}</div>
+                        </div>
+                        <div class="col-sm-3 col-xs-6">
+                            <div class="flex align-items-center">
+                                <span class="icon electric"></span>
+                                <span class="name-utility">Electricity</span>
+                            </div>
+                            <div class="price-for-year">{{sumElectricity}}</div>
+                        </div>
+                        <div class="col-sm-3 col-xs-6">
+                            <div class="flex align-items-center">
+                                <span class="icon water"></span>
+                                <span class="name-utility">Water</span>
+                            </div>
+                            <div class="price-for-year">{{sumWater}}</div>
+
+                        </div>
+                        <div class="col-sm-3 col-xs-6">
+                            <div class="flex align-items-center">
+                                <span class="icon rent"></span>
+                                <span class="name-utility">Home rent</span>
+                            </div>
+                            <div class="price-for-year">{{sumRent}}</div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </main>
 </div>
 
 
