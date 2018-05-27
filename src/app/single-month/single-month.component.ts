@@ -5,7 +5,6 @@ import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
 import { PaymentService } from '../payment.service';
-import {Months} from "../arrMonth";
 
 @Component({
   selector: 'app-single-month',
@@ -15,8 +14,6 @@ import {Months} from "../arrMonth";
 export class SingleMonthComponent implements OnInit {
 
   @Input() payment: Payment;
-  @Input() month: Months;
-  payments : Payment[];
 
     constructor(
         private route: ActivatedRoute,
@@ -26,7 +23,6 @@ export class SingleMonthComponent implements OnInit {
 
     ngOnInit(): void {
         this.getPayment();
-        this.getMonth();
     }
 
     getPayment(): void {
@@ -36,44 +32,7 @@ export class SingleMonthComponent implements OnInit {
         this.paymentService.getPayment(id, year)
             .subscribe(payment => {this.payment = payment[0];});
     }
-    getMonth(): void {
-        const id = +this.route.snapshot.paramMap.get('month');
-        this.paymentService.getMonth(id)
-            .subscribe(month => {this.month = month[0]});
-    }
-    //add(id: number, year: number): void {
-    //    const newPayment =  {id: id, year: year,
-    //        fixed: [{ name_fixed:'rent', payment_fixed: 0}],
-    //        variable:[
-    //            {name_variable :'electricity', current_variable: 0, prev_variable: 0, payment_variable: 0},
-    //            {name_variable :'gas', current_variable: 0, prev_variable: 0, payment_variable: 0},
-    //            {name_variable :'water', current_variable: 0, prev_variable: 0, payment_variable: 0}
-    //        ]
-    //    };
-    //
-    //    this.paymentService.addPayment((newPayment) as Payment)
-    //        .subscribe(payment => this.payments.push(payment));
-    //
-    //}
 
-
-    //getPayment(): void {
-    //    const id = +this.route.snapshot.paramMap.get('id');
-    //    const year = +this.route.snapshot.paramMap.get('year');
-    //    if(id!=0 && year!=0){
-    //
-    //        this.paymentService.getPayment(id, year)
-    //            .subscribe(payment => {
-    //                this.payment = payment; console.log(this.payment);
-    //                if((this.payment===undefined)){
-    //
-    //                        this.add(id,year);
-    //                        this.getPayment();
-    //                    }
-    //
-    //            });
-    //    }
-    //}
     getElectricityPayment() {
 
         const id = +this.route.snapshot.paramMap.get('month');

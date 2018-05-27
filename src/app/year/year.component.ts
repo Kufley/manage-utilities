@@ -3,8 +3,6 @@ import {ActivatedRoute} from '@angular/router';
 import {Location} from '@angular/common';
 
 import {Payment} from '../payments';
-import {Months} from '../arrMonth';
-
 import {PaymentService} from '../payment.service';
 import { Pipe, PipeTransform } from '@angular/core';
 import {forEach} from "@angular/router/src/utils/collection";
@@ -17,8 +15,6 @@ import {forEach} from "@angular/router/src/utils/collection";
 export class YearComponent implements OnInit {
 
     payments: Payment[];
-    months: Months[];
-    today = Date.now();
     todayMonth = new Date().getMonth();
     todayYear = new Date().getFullYear();
     year = this.todayYear;
@@ -28,9 +24,7 @@ export class YearComponent implements OnInit {
     sumRent: number;
     sumTotal: number;
     addPaymentVisible : boolean;
-    addPaymentNextVisible : boolean;
-    minYear: number;
-    maxYear: number;
+    addPaymentPrevVisible : boolean;
 
     constructor(private route: ActivatedRoute,
                 private paymentService: PaymentService) {
@@ -39,10 +33,10 @@ export class YearComponent implements OnInit {
     getPayments(): void {
 
         const idYear = this.year;
-        this.paymentService.getPayments(idYear).subscribe(payments => {
-                this.payments = payments;
-                this.checkNeedAdd();
-                this.checkNeedAddNextMonth();
+        this.paymentService.getPayments(idYear).subscribe(payments => {this.payments = payments;
+            console.log(this.payments);
+            this.checkNeedAdd();
+                this.checkNeedAddPrevMonth();
             }
         );
     }
@@ -150,13 +144,6 @@ export class YearComponent implements OnInit {
 
     }
 
-    getMonths(): void {
-        this.paymentService.getMonths().subscribe(months => {
-                this.months = months;
-            }
-        );
-    }
-
 
     // refreshMinMaxYear(): void {
     //     this.paymentService.getPaymentsAll().subscribe(payments => {
@@ -178,7 +165,12 @@ export class YearComponent implements OnInit {
     // }
 
     add(month: number, year: number): void {
+        this.payments = this.payments.sort((a, b) => {return a.month - b.month});
+
         let lastPayment = this.payments[this.payments.length - 1];
+        console.log(lastPayment);
+
+
         const newPayment = {
             month: month, year: year, saveStatus: 0,
             fixed: [{name_fixed: 'rent', payment_fixed: 2700}],
@@ -199,7 +191,7 @@ export class YearComponent implements OnInit {
                 }
 
                 this.checkNeedAdd();
-                this.checkNeedAddNextMonth();
+                this.checkNeedAddPrevMonth();
             });
 
 
@@ -219,28 +211,39 @@ export class YearComponent implements OnInit {
     }
 
 
-    checkNeedAddNextMonth(): void{
+    checkNeedAddPrevMonth(): void{
         let res = this.payments.length > 0 ? true : false;
 
-        for(var i=0; i<this.payments.length; i++){
-            if (this.payments[i].month == this.todayMonth + 2 || this.payments[i].year != this.todayYear){
+        for(var i = 0; i < this.payments.length; i++){
+            if (this.payments[i].month == this.todayMonth || this.payments[i].year != this.todayYear){
                 res = false;
             }
         }
 
-        this.addPaymentNextVisible = res;
+        this.addPaymentPrevVisible = res;
     }
+
+    //var objArray = [{ bayid:"35",  status:0},{ bayid:"1",  status:0}, { bayid:"37",  status:0}];
+
+//    compare(a,b) {
+//        for(var i = 0; i < this.payments.length; i++) {
+//            if (a.this.payments[i].month < b.this.payments[i].month)
+//                return 1;
+//            else if (a.this.payments[i].month > b.this.payments[i].month)
+//                return -1;
+//            else
+//                return 0;
+//        }
+//}
+
 
     changeYear() {
         this.getPayments();
-        this.getMonths();
     }
 
     ngOnInit() {
         this.year = +this.route.snapshot.paramMap.get('year');
-
         this.getPayments();
-        this.getMonths();
         this.getElectricity();
         this.getGas();
         this.getWater();

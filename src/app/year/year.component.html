@@ -27,9 +27,19 @@
                     </div>
                 </div>
             </div>
+            <div class="col-sm-3 col-xs-6" *ngIf="addPaymentPrevVisible">
+                <div class="month">
+                    <div class="name">{{todayMonth | month}}</div>
 
-            <div class="col-sm-3 col-xs-6">
-                <div class="month" *ngIf="addPaymentVisible">
+                    <div class="add" (click)="add(todayMonth, todayYear);">
+
+
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-sm-3 col-xs-6" *ngIf="addPaymentVisible">
+                <div class="month" >
                     <div class="name">{{todayMonth + 1 | month}}</div>
 
                     <div class="add" (click)="add(todayMonth + 1, todayYear);">
@@ -41,17 +51,7 @@
             </div>
 
 
-            <div class="col-sm-3 col-xs-6">
-                <div class="month" *ngIf="addPaymentNextVisible">
-                    <div class="name">{{todayMonth + 2 | month}}</div>
 
-                    <div class="add" (click)="add(todayMonth + 2, todayYear);">
-
-
-                    </div>
-
-                </div>
-            </div>
         </div>
 
         <div class="row">
