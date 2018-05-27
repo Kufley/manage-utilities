@@ -33,8 +33,9 @@ export class YearComponent implements OnInit {
     getPayments(): void {
 
         const idYear = this.year;
+
+
         this.paymentService.getPayments(idYear).subscribe(payments => {this.payments = payments;
-            console.log(this.payments);
             this.checkNeedAdd();
                 this.checkNeedAddPrevMonth();
             }
@@ -168,8 +169,6 @@ export class YearComponent implements OnInit {
         this.payments = this.payments.sort((a, b) => {return a.month - b.month});
 
         let lastPayment = this.payments[this.payments.length - 1];
-        console.log(lastPayment);
-
 
         const newPayment = {
             month: month, year: year, saveStatus: 0,

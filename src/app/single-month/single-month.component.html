@@ -1,135 +1,204 @@
-
 <div *ngIf="payment || month">
-  
-  <div class="container">
-    <div class="row justify-content-between">
-      <div class="col col-xs-4">
+
+    <div class="container">
+        <div class="row justify-content-between">
+            <div class="col col-xs-4">
 
 
-          <div (click)="goBack()" class="back"></div>
+                <div (click)="goBack()" class="back"></div>
 
-      </div>
-      <div class="col col-xs-4">
+            </div>
+            <div class="col col-xs-4">
 
-        <div class="month-heading" >{{payment?.month | month}}</div>
-      </div>
-      <div class="col col-xs-4">
+                <div class="month-heading">{{payment?.month | month}}</div>
+            </div>
+            <div class="col col-xs-4">
 
 
-      </div>
+            </div>
+        </div>
+        <div class="newUtility" >
+            <label class="sr-only" for="newUtility">Name</label>
+            <input [(ngModel)]="name" type="text" name="newUtility" id="newUtility" class="form-control"
+                   placeholder="New Utility">
+            <button (click)="addUtility(name, 0)">variable</button>
+            <button (click)="addUtility(name, 1)">fixed</button>
+        </div>
+        <form>
+            <div *ngFor="let p of payment.variable">
+                <div class="row">
+                    <div class="col-sm-3 col-xs-12">
+                        <div class="flex align-items-center">
+                            <span class="icon electric"></span>
+                            <span class="name-utility"> {{p.name_variable}}</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 col-xs-6">
+                        <label class="sr-only" for="prev-gas">Name</label>
+                        <input [(ngModel)]="p.prev_variable" type="number" name="prev-gas" class="form-control"
+                               id="prev-gas" placeholder="Previous value">
+                    </div>
+                    <div class="col-sm-3 col-xs-6">
+                        <label class="sr-only" for="next-gas">Name</label>
+                        <input [(ngModel)]="p.current_variable" name="current_gas" type="number" class="form-control"
+                               id="next-gas" placeholder="Current value">
+                    </div>
+                    <div class="col-sm-1 col-xs-6">
+                        <!--<span class="icon calc  calc-gas" (click)="getElectricityPayment()"></span>-->
+                    </div>
+                    <div class="col-sm-2 col-xs-6">
+                        <span class="price-gas flex justify-content-end align-items-center"><input
+                                [(ngModel)]="p.payment_variable" type="number" name="total-for-gas" class="form-control"></span>
+                    </div>
+                </div>
+
+
+            </div>
+            <div *ngFor="let p of payment.fixed">
+                <div class="row">
+                    <div class="col-sm-3 col-xs-12">
+                        <div class="flex align-items-center">
+                            <span class="icon rent"></span>
+                            <span class="name-utility">{{p.name_fixed}}</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 col-xs-6">
+                        <label class="sr-only" for="rent">Name</label>
+                        <input [(ngModel)]="p.payment_fixed" type="text" name="rent" class="form-control"
+                               id="rent" placeholder="paymently price">
+                    </div>
+
+
+                    <div class="col-sm-2 offset-sm-4 col-xs-6">
+                        <span class="price-rent flex justify-content-end align-items-center">{{p.payment_fixed}}</span>
+                    </div>
+                </div>
+            </div>
+<!--            <div class="row">
+                <div class="col-sm-3 col-xs-12">
+                    <div class="flex align-items-center">
+                        <span class="icon electric"></span>
+                        <span class="name-utility">Electricity</span>
+                    </div>
+                </div>
+                <div class="col-sm-3 col-xs-6">
+                    <label class="sr-only" for="prev-gas">Name</label>
+                    <input [(ngModel)]="payment.variable[0].prev_variable" type="text" name="prev-gas"
+                           class="form-control" id="prev-gas" placeholder="Previous value">
+                </div>
+                <div class="col-sm-3 col-xs-6">
+                    <label class="sr-only" for="next-gas">Name</label>
+                    <input [(ngModel)]="payment.variable[0].current_variable" name="current_gas" type="text"
+                           class="form-control" id="next-gas" placeholder="Current value">
+                </div>
+                <div class="col-sm-1 col-xs-6">
+                    <span class="icon calc  calc-gas" (click)="getElectricityPayment()"></span>
+                </div>
+                <div class="col-sm-2 col-xs-6">
+                    <span class="price-gas flex justify-content-end align-items-center"><input
+                            [(ngModel)]="payment.variable[0].payment_variable" type="text" name="total-for-gas"
+                            class="form-control"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3 col-xs-12">
+                    <div class="flex align-items-center">
+                        <span class="icon gas"></span>
+                        <span class="name-utility">Gas</span>
+                    </div>
+                </div>
+                <div class="col-sm-3 col-xs-6">
+                    <label class="sr-only" for="prev-electric">Name</label>
+                    <input [(ngModel)]="payment.variable[1].prev_variable" name="prev_electricity" type="text"
+                           class="form-control" id="prev-electric" placeholder="Previous value">
+                </div>
+                <div class="col-sm-3 col-xs-6">
+                    <label class="sr-only" for="next-electric">Name</label>
+                    <input [(ngModel)]="payment.variable[1].current_variable" name="current_electricity" type="text"
+                           class="form-control" id="next-electric" placeholder="Current value">
+                </div>
+                <div class="col-sm-1 col-xs-6">
+                    <span class="icon calc calc-electric" (click)="getGasPayment()"></span>
+                </div>
+                <div class="col-sm-2 col-xs-6">
+                    <span class="price-electric flex justify-content-end align-items-center"><input
+                            [(ngModel)]="payment.variable[1].payment_variable" type="text" name="total-for-electricity"
+                            class="form-control"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3 col-xs-12">
+                    <div class="flex align-items-center">
+                        <span class="icon water"></span>
+                        <span class="name-utility">Water</span>
+                    </div>
+                </div>
+                <div class="col-sm-3 col-xs-6">
+                    <label class="sr-only" for="prev-water">Name</label>
+                    <input [(ngModel)]="payment.variable[2].prev_variable" name="prev_water" type="text"
+                           class="form-control" id="prev-water" placeholder="Previous value">
+                </div>
+                <div class="col-sm-3 col-xs-6">
+                    <label class="sr-only" for="next-water">Name</label>
+                    <input [(ngModel)]="payment.variable[2].current_variable" name="current_water" type="text"
+                           class="form-control" id="next-water" placeholder="Current value">
+                </div>
+                <div class="col-sm-1 col-xs-6">
+                    <span class="icon calc calc-water" (click)="getWaterPayment()"></span>
+                </div>
+                <div class="col-sm-2 col-xs-6">
+                    <span class="price-water flex justify-content-end align-items-center"><input
+                            [(ngModel)]="payment.variable[2].payment_variable" type="text" name="total-for-water"
+                            class="form-control"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3 col-xs-12">
+                    <div class="flex align-items-center">
+                        <span class="icon rent"></span>
+                        <span class="name-utility">Home rent</span>
+                    </div>
+                </div>
+                <div class="col-sm-3 col-xs-6">
+                    <label class="sr-only" for="rent">Name</label>
+                    <input [(ngModel)]="payment.fixed[0].payment_fixed" type="text" name="rent" class="form-control"
+                           id="rent" placeholder="paymently price">
+                </div>
+
+
+                <div class="col-sm-2 offset-sm-4 col-xs-6">
+                    <span class="price-rent flex justify-content-end align-items-center">{{payment.fixed[0].payment_fixed}}</span>
+                </div>
+            </div>-->
+            <div class="row">
+                <div class="offset-sm-6 col-xs-6 col-sm-4 total-for-month">
+                    <div>Total Expenses:</div>
+                    <span>1 month</span>
+                </div>
+                <div class="col-sm-2 col-xs-6 total-for-month ">
+                    <div class="flex justify-content-end">
+                        <input [(ngModel)]="+payment.fixed[0].payment_fixed + +payment.variable[0].payment_variable + +payment.variable[1].payment_variable + +payment.variable[2].payment_variable"
+                               type="text" name="total-for-month" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="row align-items-center" *ngIf="payment.saveStatus == 0 else close_payment">
+                <div class="col-sm-6 col-xs-6">
+
+                    <div class="save flex align-items-center" (click)="save(payment, 0)">Save</div>
+                </div>
+
+                <div class="col-sm-6 col-xs-6">
+                    <div class="submit flex justify-content-end">
+                        <button type="submit" (click)="save(payment, 1)">Confirm</button>
+                    </div>
+                </div>
+            </div>
+            <ng-template #close_payment>
+                <h3 class="text-center">Payment is closed</h3>
+            </ng-template>
+        </form>
+
     </div>
-    <form>
-      <div class="row">
-        <div class="col-sm-3 col-xs-12">
-          <div class="flex align-items-center">
-            <span class="icon electric"></span>
-            <span class="name-utility">Electricity</span>
-          </div>
-        </div>
-        <div class="col-sm-3 col-xs-6">
-          <label class="sr-only" for="prev-gas">Name</label>
-          <input  [(ngModel)]="payment.variable[0].prev_variable" type="text" name="prev-gas" class="form-control" id="prev-gas" placeholder="Previous value">
-        </div>
-        <div class="col-sm-3 col-xs-6">
-          <label class="sr-only" for="next-gas">Name</label>
-          <input [(ngModel)]="payment.variable[0].current_variable" name="current_gas" type="text" class="form-control" id="next-gas" placeholder="Current value">
-        </div>
-        <div class="col-sm-1 col-xs-6">
-          <span class="icon calc  calc-gas" (click)="getElectricityPayment()"></span>
-        </div>
-        <div class="col-sm-2 col-xs-6">
-          <span class="price-gas flex justify-content-end align-items-center"><input  [(ngModel)]="payment.variable[0].payment_variable" type="text" name="total-for-gas" class="form-control"></span>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-sm-3 col-xs-12">
-          <div class="flex align-items-center">
-            <span class="icon gas"></span>
-            <span class="name-utility">Gas</span>
-          </div>
-        </div>
-        <div class="col-sm-3 col-xs-6">
-          <label class="sr-only" for="prev-electric">Name</label>
-          <input [(ngModel)]="payment.variable[1].prev_variable" name="prev_electricity" type="text" class="form-control" id="prev-electric" placeholder="Previous value">
-        </div>
-        <div class="col-sm-3 col-xs-6">
-          <label class="sr-only" for="next-electric">Name</label>
-          <input [(ngModel)]="payment.variable[1].current_variable" name="current_electricity" type="text" class="form-control" id="next-electric" placeholder="Current value">
-        </div>
-        <div class="col-sm-1 col-xs-6">
-          <span class="icon calc calc-electric" (click)="getGasPayment()"></span>
-        </div>
-        <div class="col-sm-2 col-xs-6">
-          <span class="price-electric flex justify-content-end align-items-center"><input  [(ngModel)]="payment.variable[1].payment_variable" type="text" name="total-for-electricity" class="form-control"></span>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-sm-3 col-xs-12">
-          <div class="flex align-items-center">
-            <span class="icon water"></span>
-            <span class="name-utility">Water</span>
-          </div>
-        </div>
-        <div class="col-sm-3 col-xs-6">
-          <label class="sr-only" for="prev-water">Name</label>
-          <input [(ngModel)]="payment.variable[2].prev_variable" name="prev_water" type="text" class="form-control" id="prev-water" placeholder="Previous value">
-        </div>
-        <div class="col-sm-3 col-xs-6">
-          <label class="sr-only" for="next-water">Name</label>
-          <input [(ngModel)]="payment.variable[2].current_variable" name="current_water" type="text" class="form-control" id="next-water" placeholder="Current value">
-        </div>
-        <div class="col-sm-1 col-xs-6">
-          <span class="icon calc calc-water" (click)="getWaterPayment()"></span>
-        </div>
-        <div class="col-sm-2 col-xs-6">
-          <span class="price-water flex justify-content-end align-items-center"><input [(ngModel)]="payment.variable[2].payment_variable" type="text" name="total-for-water" class="form-control"></span>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-sm-3 col-xs-12">
-          <div class="flex align-items-center">
-            <span class="icon rent"></span>
-            <span class="name-utility">Home rent</span>
-          </div>
-        </div>
-        <div class="col-sm-3 col-xs-6">
-          <label class="sr-only" for="rent">Name</label>
-          <input  [(ngModel)]="payment.fixed[0].payment_fixed" type="text" name="rent" class="form-control" id="rent" placeholder="paymently price">
-        </div>
-
-
-        <div class="col-sm-2 offset-sm-4 col-xs-6">
-          <span class="price-rent flex justify-content-end align-items-center">{{payment.fixed[0].payment_fixed}}</span>
-        </div>
-      </div>
-      <div class="row">
-        <div class="offset-sm-6 col-xs-6 col-sm-4 total-for-month">
-          <div>Total Expenses:</div>
-          <span>1 month</span>
-        </div>
-        <div class="col-sm-2 col-xs-6 total-for-month ">
-          <div class="flex justify-content-end">
-            <input  [(ngModel)]="+payment.fixed[0].payment_fixed + +payment.variable[0].payment_variable + +payment.variable[1].payment_variable + +payment.variable[2].payment_variable" type="text" name="total-for-month" class="form-control">
-          </div>
-        </div>
-      </div>
-      <div class="row align-items-center" *ngIf="payment.saveStatus == 0 else close_payment">
-        <div class="col-sm-6 col-xs-6">
-
-          <div class="save flex align-items-center" (click)="save(payment, 0)">Save</div>
-        </div>
-
-        <div class="col-sm-6 col-xs-6">
-          <div class="submit flex justify-content-end">
-            <button type="submit" (click)="save(payment, 1)">Confirm</button>
-          </div>
-        </div>
-      </div>
-      <ng-template #close_payment>
-        <h3 class="text-center">Payment is closed</h3>
-      </ng-template>
-    </form>
-
-  </div>
 
 </div>

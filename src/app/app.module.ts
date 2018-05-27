@@ -12,6 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService }  from './in-memory-data.service';
 import { MonthPipe } from './month.pipe';
+import { PropertiesPipe } from './properties.pipe';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { MonthPipe } from './month.pipe';
     YearComponent,
     SingleMonthComponent,
     MonthPipe,
+    PropertiesPipe,
 
   ],
   imports: [
