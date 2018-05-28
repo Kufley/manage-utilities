@@ -17,16 +17,22 @@ import {fixedUtilities} from "../fixedUtilities";
 export class SingleMonthComponent implements OnInit {
 
     @Input() payment: Payment;
-    objectKeys = Object.keys;
     name: string;
+
 
     constructor(private route: ActivatedRoute,
                 private paymentService: PaymentService,
                 private location: Location) {
     }
 
+    trackByIndex(index: number, obj: any): any {
+        return index;
+    }
+
     ngOnInit(): void {
         this.getPayment();
+
+
     }
 
     getPayment(): void {
@@ -36,55 +42,50 @@ export class SingleMonthComponent implements OnInit {
         this.paymentService.getPayment(id, year)
             .subscribe(payment => {
                 this.payment = payment[0];
-                console.log(this.payment);
+                this.getTotalMonth();
             });
     }
 
-    getElectricityPayment() {
 
-        const id = +this.route.snapshot.paramMap.get('month');
-        const year = +this.route.snapshot.paramMap.get('year');
+    getTotalMonth() {
 
-        this.paymentService.getPayment(id, year).subscribe(
-            current => {
-                this.payment.variable[0].payment_variable = (this.payment.variable[0].current_variable - this.payment.variable[0].prev_variable) * 1.50;
-            }
-        );
-    }
+        var sum = 0;
 
-    getGasPayment() {
+        for (let i = 0; i < this.payment.variable.length; i++) {
 
-        const id = +this.route.snapshot.paramMap.get('month');
-        const year = +this.route.snapshot.paramMap.get('year');
+            this.payment.variable[i].payment_variable = (this.payment.variable[i].current_variable -
+                (+this.payment.variable[i].prev_variable)) * this.payment.variable[i].coof;
 
-        this.paymentService.getPayment(id, year).subscribe(
-            current => {
-                this.payment.variable[1].payment_variable = (this.payment.variable[1].current_variable - this.payment.variable[1].prev_variable) * 1.50;
-            }
-        );
-    }
+            sum += this.payment.variable[i].payment_variable;
+        }
+        for (let j = 0; j < this.payment.fixed.length; j++) {
 
-    getWaterPayment() {
+            sum += this.payment.fixed[j].payment_fixed;
+        }
+        this.payment.total = sum;
 
-        const id = +this.route.snapshot.paramMap.get('month');
-        const year = +this.route.snapshot.paramMap.get('year');
-        this.paymentService.getPayment(id, year).subscribe(
-            current => {
-                this.payment.variable[2].payment_variable = (this.payment.variable[2].current_variable - this.payment.variable[2].prev_variable) * 1.50;
-            }
-        );
+
+
     }
 
     addUtility(name: string, index: number): void {
-        if (index == 0) {
-            let newUtility = new variableUtilities();
-            newUtility = {name_variable: name, current_variable: 0, prev_variable: 0, payment_variable: 0};
-                this.payment.variable.push(newUtility);
-        } else {
-            let newUtility = new fixedUtilities();
-            newUtility = {name_fixed: name, payment_fixed: 0};
-                this.payment.fixed.push(newUtility);
-        }
+        name = name.trim();
+        if (!name) { return; }
+
+
+
+                if (index == 0) {
+                    let newUtility = new variableUtilities();
+                    newUtility = {name_variable: name, current_variable: 0, prev_variable: 0, payment_variable: 0, coof: 1};
+                    this.payment.variable.push(newUtility);
+                } else {
+                    let newUtility = new fixedUtilities();
+                    newUtility = {name_fixed: name, payment_fixed: 0};
+                    this.payment.fixed.push(newUtility);
+                }
+
+
+
 
 
         this.paymentService.updatePayment(this.payment)
@@ -102,8 +103,10 @@ export class SingleMonthComponent implements OnInit {
     }
 
     save(payment: Payment, saveStatus: number): void {
+        this.payment = payment;
         this.payment.saveStatus = saveStatus;
         this.paymentService.updatePayment(this.payment).subscribe();
+        this.getTotalMonth();
     }
 
 }

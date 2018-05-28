@@ -21,9 +21,7 @@
                     <div class="name">{{payment.month | month}}</div>
 
                     <div class="price-for-month">
-                        {{+payment.fixed[0].payment_fixed +
-                        +payment.variable[0].payment_variable + +payment.variable[1].payment_variable +
-                        +payment.variable[2].payment_variable}}
+                        {{payment.total}}
                     </div>
                 </div>
             </div>
@@ -60,6 +58,18 @@
                     <div class="heading-total">Total: <span>{{sumTotal}}</span></div>
 
                     <div class="heading-total">Expenses by type:</div>
+
+
+                    <!--<div *ngFor="let p of myArray">-->
+                        <!--name: {{p.name}}-->
+                        <!--value: {{p.value}}-->
+
+                    <!--</div>-->
+
+
+
+
+
                 </div>
 
                 <div class="total-body">
@@ -71,29 +81,29 @@
                             </div>
                             <div class="price-for-year">{{sumGas}}</div>
                         </div>
-                        <div class="col-sm-3 col-xs-6">
-                            <div class="flex align-items-center">
-                                <span class="icon electric"></span>
-                                <span class="name-utility">Electricity</span>
-                            </div>
-                            <div class="price-for-year">{{sumElectricity}}</div>
-                        </div>
-                        <div class="col-sm-3 col-xs-6">
-                            <div class="flex align-items-center">
-                                <span class="icon water"></span>
-                                <span class="name-utility">Water</span>
-                            </div>
-                            <div class="price-for-year">{{sumWater}}</div>
+                        <!--<div class="col-sm-3 col-xs-6">-->
+                            <!--<div class="flex align-items-center">-->
+                                <!--<span class="icon electric"></span>-->
+                                <!--<span class="name-utility">Electricity</span>-->
+                            <!--</div>-->
+                            <!--<div class="price-for-year">{{sumElectricity}}</div>-->
+                        <!--</div>-->
+                        <!--<div class="col-sm-3 col-xs-6">-->
+                            <!--<div class="flex align-items-center">-->
+                                <!--<span class="icon water"></span>-->
+                                <!--<span class="name-utility">Water</span>-->
+                            <!--</div>-->
+                            <!--<div class="price-for-year">{{sumWater}}</div>-->
 
-                        </div>
-                        <div class="col-sm-3 col-xs-6">
-                            <div class="flex align-items-center">
-                                <span class="icon rent"></span>
-                                <span class="name-utility">Home rent</span>
-                            </div>
-                            <div class="price-for-year">{{sumRent}}</div>
+                        <!--</div>-->
+                        <!--<div class="col-sm-3 col-xs-6">-->
+                            <!--<div class="flex align-items-center">-->
+                                <!--<span class="icon rent"></span>-->
+                                <!--<span class="name-utility">Home rent</span>-->
+                            <!--</div>-->
+                            <!--<div class="price-for-year">{{sumRent}}</div>-->
 
-                        </div>
+                        <!--</div>-->
                     </div>
                 </div>
             </div>

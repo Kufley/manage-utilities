@@ -196,20 +196,23 @@ main {
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
     width: 30px;
 }
-.text-center{
+
+.text-center {
     text-align: center;
     color: #333;
 }
+
 form {
     padding: 0 15px 40px;
 }
 
 form > .row:not(:last-child) {
     margin-bottom: 28px;
+    margin-top: 40px;
 }
-
-
-
+form  .col-sm-3{
+   padding: 0 10px;
+}
 input {
     height: 30px;
     display: block;
@@ -285,9 +288,33 @@ button[type="submit"] {
     border: 0;
 }
 
+.button-to-show {
+    border: 0;
+    background: #328bf7;
+    color: #fff;
+    outline: none;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 6px 15px;
+    cursor: pointer;
+}
+
+.btn-add-new-utility button {
+    border: 0;
+    background: #3fb0a5;
+    color: #fff;
+    outline: none;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 6px 15px;
+}
+
+#element-to-hide {
+    display: none
+}
 
 @media all and (max-width: 575px) {
-    .col-xs-6{
+    .col-xs-6 {
         -ms-flex: 0 0 50%;
         flex: 0 0 50%;
         max-width: 50%;
@@ -296,7 +323,6 @@ button[type="submit"] {
     input {
         margin-bottom: 20px;
     }
-
 
     button[type="submit"] {
         padding: 16px 20px;
