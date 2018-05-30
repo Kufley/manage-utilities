@@ -1,3 +1,10 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 2rem 0;
+    font-weight: 400;
+    font-size: 14px;
+}
+
 .container {
     max-width: 670px;
     background: #FBFCFC;
@@ -7,9 +14,8 @@
 
 .year, .month-heading {
     text-align: center;
-    line-height: 1em;
     font-size: 24px;
-    padding: 24px;
+    padding: 11px;
     color: #fff;
 
 }
@@ -18,7 +24,7 @@
     width: 30px;
     height: 30px;
     cursor: pointer;
-    margin-top: 21px;
+    margin-top: 10px;
 }
 
 .back {
@@ -46,27 +52,6 @@ main {
     padding: 0 30px 40px;
 }
 
-.month {
-    background: #fff;
-    padding-bottom: 10px;
-    text-align: center;
-    margin-bottom: 20px;
-    min-height: 100px;
-    border: 1px solid #D1D1D1;
-    border-radius: 0.25rem;
-    cursor: pointer;
-}
-
-.month.active {
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
-
-}
-
-.month.disable {
-    background: #FBFCFC;
-    opacity: 0.7;
-    cursor: not-allowed;
-}
 
 .name {
     padding: 8px;
@@ -154,7 +139,7 @@ main {
 .name-utility {
     font-weight: 300;
     font-size: 16px;
-    padding: 18px 0;
+    padding: 10px 0;
 }
 
 .flex {
@@ -193,7 +178,10 @@ main {
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
     width: 30px;
 }
-
+.icon.other {
+    background: url(../../assets/img/other.svg)  no-repeat;
+    width: 30px;
+}
 .text-center {
     text-align: center;
     color: #333;
@@ -202,31 +190,25 @@ main {
 .form {
     padding: 0 15px 20px;
 }
+.value{
+    width: 47%;
+}
 
-.form > .row:not(:nth-last-child(2)){
-    margin-bottom: 28px;
-    margin-top: 40px;
-    border: 1px solid #f2f2f2;
-    padding-bottom: 20px;
-    box-shadow: #33333347 0 2px 5px;
-}
-.form > .row.align-items-center{
-    border: 0;
-    box-shadow: none;
-}
-.form  .col-sm-3{
-   padding: 0 10px;
-}
-.form > .row  .col-sm-12{
+
+.heading-name{
    background: #f2f2f2;
-   margin-bottom: 20px;
+    margin-left: -15px;
+    margin-right: -15px;
 }
 .padding-10{
-    margin-top: 23px;
+    margin-top: 32px;
 }
 label {
     display: inline-block;
     margin-bottom: 5px;
+    margin-top: 15px;
+    font-size: 13px;
+    color: #636363;
 }
 input {
     height: 30px;
@@ -319,9 +301,11 @@ button[type="submit"] {
     background: #3fb0a5;
     color: #fff;
     outline: none;
-    margin-top: 20px;
     margin-bottom: 20px;
-    padding: 6px 15px;
+    padding: 7px 15px;
+    margin-left: 15px;
+    border-radius: 4px;
+    min-width: 100px;
 }
 #overlay{
     display: none;
@@ -341,56 +325,49 @@ button[type="submit"] {
     padding: 10px 0 10px 10px;
 }
 #element-to-hide {
-    /*z-index:2;*/
+
     display: none;
-    /*position: fixed;*/
-    /*top: 20%;*/
-    /*left: 50%;*/
-    /*transform: translate(-50%, -50%);*/
-    /*border: 1px solid #bdbdbd;*/
-    /*padding: 4px 15px 15px 15px;*/
 }
 .form .flex .add{
     margin-top: 0;
 }
+.panel-wrap{
+    max-width: 600px;
+    margin: 0 auto;
+}
+.panel{
+    max-width: 275px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    margin-bottom: 30px;
+    padding-bottom: 15px;
+}
 input.error{
     border: 1px solid red;
 }
-/*#wrongValue{*/
-    /*display: none;*/
-/*}*/
-/*#wrongValue.visible{*/
-    /*display: block;*/
-/*}*/
-/*.mess {*/
-    /*position: fixed;*/
-    /*top: 20px;*/
-    /*left: 50%;*/
-    /*text-align: center;*/
-    /*background: #fff;*/
-    /*height: 100px;*/
-    /*width: 300px;*/
-    /*transform: translate(-50%);*/
-    /*padding-top: 20px;*/
-    /*box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);*/
 
-/*}*/
-.with-form{
-    max-width: 300px;
-}
-@media all and (max-width: 575px) {
-    .col-xs-6 {
-        -ms-flex: 0 0 50%;
-        flex: 0 0 50%;
-        max-width: 50%;
+@media all and (max-width: 768px) {
+    .panel[_ngcontent-c1] {
+        max-width: 47%;
     }
 
-    input {
-        margin-bottom: 20px;
-    }
+}@media all and (max-width: 575px) {
 
-    button[type="submit"] {
-        padding: 16px 20px;
+    .panel[_ngcontent-c1] {
+        max-width: 300px;
+        margin: 0 auto 30px;
+    }
+    .total-for-month{
+        width: 50%;
+    }
+    .btn-add-new-utility{
+        justify-content: space-between;
+    }
+    .btn-add-new-utility button {
+
+        margin-left:0;
+        margin-top: 20px;
+        margin-right: 30px;
+        min-width: 100px;
     }
 
 }

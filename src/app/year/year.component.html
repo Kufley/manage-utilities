@@ -66,6 +66,7 @@
                         <div class="col-sm-3 col-xs-6" *ngFor="let p of myArray">
 
                             <div class="flex align-items-center">
+                                <span [ngClass]="p.name == 'Rent' ? 'rent' : p.name == 'Gas' ? 'gas' : p.name == 'Electricity' ? 'electric' : p.name == 'Water' ? 'water' : 'other'" class="icon"></span>
                                 <span class="name-utility">{{p.name}}</span>
                             </div>
                             <div class="price-for-year">{{p.value}}</div>

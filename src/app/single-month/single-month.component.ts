@@ -20,7 +20,6 @@ export class SingleMonthComponent implements OnInit {
     @Input() payment:Payment;
     name:string;
     wrongPayment:boolean = false;
-    valid:boolean;
 
 
     constructor(private route:ActivatedRoute,
@@ -29,9 +28,20 @@ export class SingleMonthComponent implements OnInit {
     }
 
     trackByIndex(index:number, obj:any):any {
+
         return index;
     }
+    wrongPay(index:number){
+        var wrongPayment = false;
+        for (let i = 0; i < this.payment.variable.length; i++) {
+            if (this.payment.variable[i].current_variable < this.payment.variable[i].prev_variable) {
+                wrongPayment = true;
+            }
+        }
 
+        return wrongPayment;
+
+    }
     ngOnInit():void {
         this.getPayment();
 
@@ -45,9 +55,10 @@ export class SingleMonthComponent implements OnInit {
         this.paymentService.getPayment(id, year)
             .subscribe(payment => {
                 this.payment = payment[0];
-                //this.getTotalMonth();
+                this.getTotalMonth();
             });
     }
+
 
 
     getTotalMonth() {
@@ -70,13 +81,11 @@ export class SingleMonthComponent implements OnInit {
             sum += this.payment.fixed[j].payment_fixed;
         }
         this.payment.total = sum;
-        this.wrongPayment = wrongPayment;
 
 
     }
 
     validation(name:string):boolean {
-        //var valid = true;
         for (let j = 0; j < this.payment.fixed.length; j++) {
 
             if (name == this.payment.fixed[j].name_fixed || name.match(/^[A-Z]*$/)) {
@@ -102,17 +111,21 @@ export class SingleMonthComponent implements OnInit {
                 let newUtility = new variableUtilities();
                 newUtility = {name_variable: name, current_variable: 0, prev_variable: 0, payment_variable: 0, coof: 1};
                 this.payment.variable.push(newUtility);
+
+
             } else {
                 let newUtility = new fixedUtilities();
                 newUtility = {name_fixed: name, payment_fixed: 0};
                 this.payment.fixed.push(newUtility);
+
+
             }
 
-
             this.paymentService.updatePayment(this.payment).subscribe();
+
         }
 
-        this.name = '';
+        // this.name = '';
     }
 
     goBack():void {
@@ -124,6 +137,7 @@ export class SingleMonthComponent implements OnInit {
         this.payment.saveStatus = saveStatus;
         this.paymentService.updatePayment(this.payment).subscribe();
         this.getTotalMonth();
+        // this.goBack();
     }
 
 }

@@ -139,7 +139,7 @@ export class YearComponent implements OnInit {
         let variableUtilities = new Array(0);
         for (let i = 0; i < lastPayment.fixed.length; i++) {
             var fixedUtilitie =
-            {name_fixed: lastPayment.fixed[i].name_fixed, payment_fixed: 2700};
+            {name_fixed: lastPayment.fixed[i].name_fixed, payment_fixed: lastPayment.fixed[i].payment_fixed};
 
             fixedUtilities.push(fixedUtilitie);
 
