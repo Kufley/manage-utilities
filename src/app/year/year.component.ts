@@ -18,15 +18,10 @@ export class YearComponent implements OnInit {
     todayMonth = new Date().getMonth();
     todayYear = new Date().getFullYear();
     year = this.todayYear;
-    sumElectricity: number;
-    sumGas: number;
-    sumWater: number;
-    sumRent: number;
-    sumTotal: number;
     addPaymentVisible: boolean;
     addPaymentPrevVisible: boolean;
-
-    // myArray: [];
+    sumYear:number;
+    myArray = new Array(0);
 
     constructor(private route: ActivatedRoute,
                 private paymentService: PaymentService) {
@@ -41,208 +36,79 @@ export class YearComponent implements OnInit {
                 this.payments = payments;
                 this.checkNeedAdd();
                 this.checkNeedAddPrevMonth();
+                this.getTotal();
+                this.getTotalYear();
+
             }
         );
     }
-
-    getElectricity() {
-
+    getTotalYear(){
         const idYear = this.year;
-
-        this.paymentService.getPayments(idYear).subscribe(
-            payments => {
-                this.payments = payments;
-                let sumElectricity = 0;
-
-                for (let i = 0; i <= this.payments.length - 1; i++) {
-                    sumElectricity += this.payments[i].variable[0].payment_variable;
-                }
-
-                this.sumElectricity = sumElectricity;
+        this.paymentService.getPayments(idYear).subscribe(payments => {
+            this.payments = payments;
+            let sumYear = 0;
+            for (let i = 0; i < payments.length; i++) {
+                sumYear += this.payments[i].total;
             }
-        );
+            this.sumYear = sumYear;
+        }
 
+    );
 
     }
-
-    getGas() {
-
-        const idYear = this.year;
-
-        this.paymentService.getPayments(idYear).subscribe(
-            payments => {
-                this.payments = payments;
-                let sumGas = 0;
-
-                for (let i = 0; i <= this.payments.length - 1; i++) {
-                    sumGas += this.payments[i].variable[1].payment_variable;
-                }
-
-                this.sumGas = sumGas;
-            }
-        );
-
-
-    }
-
-    getWater() {
-
-        const idYear = this.year;
-
-        this.paymentService.getPayments(idYear).subscribe(
-            payments => {
-                this.payments = payments;
-                let sumWater = 0;
-
-                for (let i = 0; i <= this.payments.length - 1; i++) {
-                    sumWater += this.payments[i].variable[2].payment_variable;
-                }
-
-                this.sumWater = sumWater;
-            }
-        );
-
-
-    }
-
-    getRent() {
-
-        const idYear = this.year;
-
-        this.paymentService.getPayments(idYear).subscribe(
-            payments => {
-                this.payments = payments;
-                let sumRent = 0;
-
-                for (let i = 0; i <= this.payments.length - 1; i++) {
-                    sumRent += this.payments[i].fixed[0].payment_fixed;
-                }
-
-                this.sumRent = sumRent;
-            }
-        );
-
-
-    }
-
     getTotal() {
-
         const idYear = this.year;
 
         this.paymentService.getPayments(idYear).subscribe(
             payments => {
                 this.payments = payments;
-                let sumTotal = 0;
+                let arr = new Array();
+                for (let i = 0; i < payments.length; i++) {
 
-                let arr = new Array(0);
-                arr.push({name: 'total', value: 0});
-                for (let i = 0; i < payments.length - 1; i++) {
                     for (let j = 0; j < payments[i].variable.length; j++) {
                         let name = payments[i].variable[j].name_variable;
                         let val = payments[i].variable[j].payment_variable;
 
-                        let finded = false;
+                        let finded = true;
                         for (let n = 0; n < arr.length; n++) {
                             if (arr[n].name === name) {
                                 arr[n].value += val;
-                                finded = true;
-
-                                for (let m = 0; m < arr.length; m++) {
-                                    if (arr[m].name == 'total') {
-                                        arr[m].value += val;
-                                        break;
-                                    }
-                                }
+                                finded = false;
                                 break;
                             }
                         }
-
-                        if (!finded){
-                            arr.push({name: name, value: val});
-                            for (let m = 0; m < arr.length; m++) {
-                                if (arr[m].name == 'total') {
-                                    arr[m].value += val;
-                                    break;
-                                }
-                            }
-                            break;
+                        if(finded == true){
+                           arr.push({name: name, value: val});
                         }
+
                     }
 
                     for (let j = 0; j < payments[i].fixed.length; j++) {
                         let name = payments[i].fixed[j].name_fixed;
                         let val = payments[i].fixed[j].payment_fixed;
 
-                        let finded = false;
+                        let finded = true;
                         for (let n = 0; n < arr.length; n++) {
                             if (arr[n].name === name) {
                                 arr[n].value += val;
-                                finded = true;
-
-                                for (let m = 0; m < arr.length; m++) {
-                                    if (arr[m].name == 'total') {
-                                        arr[m].value += val;
-                                        break;
-                                    }
-                                }
+                                finded = false;
                                 break;
                             }
                         }
-
-                        if (!finded){
+                        if(finded == true){
                             arr.push({name: name, value: val});
-                            for (let m = 0; m < arr.length; m++) {
-                                if (arr[m].name == 'total') {
-                                    arr[m].value += val;
-                                    break;
-                                }
-                            }
-                            break;
                         }
                     }
                 }
 
-                // this.myArray = arr;
-                // this.sumTotal = sumTotal;
+                 this.myArray = arr;
             }
         );
 
 
     }
 
-    // getTotalMonth() {
-    //
-    //     const idYear = this.year;
-    //     this.paymentService.getPayments(idYear).subscribe(
-    //         payments => {
-    //             this.payments = payments;
-    //             let arr = new Array(0);
-    //             arr.push({value: 0});
-    //             for (let i = 0; i < payments.length - 1; i++) {
-    //                 for (let j = 0; j < payments[i].variable.length; j++) {
-    //                     let val = payments[i].variable[j].payment_variable;
-    //                     for (let m = 0; m < arr.length; m++) {
-    //                         arr[m].value += val;
-    //                       console.log(val);
-    //
-    //                     }
-    //
-    //                 }
-    //                 for (let j = 0; j < payments[i].fixed.length; j++) {
-    //                     let val = payments[i].fixed[j].payment_fixed;
-    //
-    //                     for (let m = 0; m < arr.length; m++) {
-    //                         arr[m].value += val;
-    //
-    //                     }
-    //
-    //                 }
-    //             }
-    //             this.myArray = arr;
-    //             console.log(arr);
-    //         }
-    //     );
-    // }
+
     // refreshMinMaxYear(): void {
     //     this.paymentService.getPaymentsAll().subscribe(payments => {
     //             let paymentsAll = payments;
@@ -261,51 +127,48 @@ export class YearComponent implements OnInit {
     //         }
     //     );
     // }
-
-    add(month: number, year: number): void {
-        this.payments = this.payments.sort((a, b) => {
-            return a.month - b.month
+    sort(payments: Payment[]) {
+        return payments.sort((a, b) => {
+            return a.month - b.month;
         });
+    }
+    add(month: number, year: number): void {
 
         let lastPayment = this.payments[this.payments.length - 1];
+        let fixedUtilities = new Array(0);
+        let variableUtilities = new Array(0);
+        for (let i = 0; i < lastPayment.fixed.length; i++) {
+            var fixedUtilitie =
+            {name_fixed: lastPayment.fixed[i].name_fixed, payment_fixed: 2700};
+
+            fixedUtilities.push(fixedUtilitie);
+
+
+        }
+
+        for (let j = 0; j < lastPayment.variable.length; j++) {
+            var variableUtilitie = { name_variable: lastPayment.variable[j].name_variable,
+                current_variable: lastPayment.variable[j].current_variable,
+                prev_variable: lastPayment.variable[j].current_variable,
+                payment_variable: 0,
+                coof: lastPayment.variable[j].coof};
+
+            variableUtilities.push(variableUtilitie);
+
+        }
 
         const newPayment = {
             month: month, year: year, saveStatus: 0, total: 0,
-            fixed: [{name_fixed: 'rent', payment_fixed: 2700}],
-            variable: [
-                {
-                    name_variable: 'electricity',
-                    current_variable: 0,
-                    prev_variable: lastPayment.variable[0].current_variable,
-                    payment_variable: 0,
-                    coof: 1.5
-                },
-                {
-                    name_variable: 'gas',
-                    current_variable: 0,
-                    prev_variable: lastPayment.variable[1].current_variable,
-                    payment_variable: 0,
-                    coof: 1.5
-                },
-                {
-                    name_variable: 'water',
-                    current_variable: 0,
-                    prev_variable: lastPayment.variable[2].current_variable,
-                    payment_variable: 0,
-                    coof: 1.5
-                }
-            ]
+            fixed: fixedUtilities,
+            variable: variableUtilities
         };
-        // this.paymentService.addPayment((newPayment) as Payment)
-        //     .subscribe(payment => {
-        //             this.payments.push(payment);
-        //     });
+
         this.paymentService.addPayment((newPayment) as Payment)
             .subscribe(payment => {
                 if (lastPayment.month != this.todayMonth + 1 || lastPayment.month != this.todayMonth + 2) {
                     this.payments.push(payment);
+                    this.payments = this.sort(this.payments);
                 }
-
                 this.checkNeedAdd();
                 this.checkNeedAddPrevMonth();
             });
@@ -346,10 +209,8 @@ export class YearComponent implements OnInit {
     ngOnInit() {
         this.year = +this.route.snapshot.paramMap.get('year');
         this.getPayments();
-        this.getElectricity();
-        this.getGas();
-        this.getWater();
-        this.getRent();
         this.getTotal();
+        this.getTotalYear();
+
     }
 }

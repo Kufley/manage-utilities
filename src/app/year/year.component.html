@@ -55,31 +55,20 @@
         <div class="row">
             <div class="col">
                 <div class="total-price">
-                    <div class="heading-total">Total: <span>{{sumTotal}}</span></div>
+                    <div class="heading-total">Total: <span>{{sumYear}}</span></div>
 
                     <div class="heading-total">Expenses by type:</div>
-
-
-                    <!--<div *ngFor="let p of myArray">-->
-                        <!--name: {{p.name}}-->
-                        <!--value: {{p.value}}-->
-
-                    <!--</div>-->
-
-
-
-
 
                 </div>
 
                 <div class="total-body">
                     <div class="row justify-content-between">
-                        <div class="col-sm-3 col-xs-6">
+                        <div class="col-sm-3 col-xs-6" *ngFor="let p of myArray">
+
                             <div class="flex align-items-center">
-                                <span class="icon gas"></span>
-                                <span class="name-utility">Gas</span>
+                                <span class="name-utility">{{p.name}}</span>
                             </div>
-                            <div class="price-for-year">{{sumGas}}</div>
+                            <div class="price-for-year">{{p.value}}</div>
                         </div>
                         <!--<div class="col-sm-3 col-xs-6">-->
                             <!--<div class="flex align-items-center">-->

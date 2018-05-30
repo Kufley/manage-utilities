@@ -173,7 +173,7 @@ main {
 }
 
 .name-utility {
-    font-weight: 300;
+    font-weight: 600;
     font-size: 16px;
 }
 
@@ -186,7 +186,7 @@ main {
 
 .price-for-year {
     font-size: 16px;
-    margin-left: 30px;
+    margin-bottom: 8px;
 }
 
 .icon {
