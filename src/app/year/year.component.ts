@@ -21,6 +21,8 @@ export class YearComponent implements OnInit {
     addPaymentVisible: boolean;
     addPaymentPrevVisible: boolean;
     sumYear:number;
+    minVal:number;
+    maxVal:number;
     myArray = new Array(0);
 
     constructor(private route: ActivatedRoute,
@@ -109,24 +111,29 @@ export class YearComponent implements OnInit {
     }
 
 
-    // refreshMinMaxYear(): void {
-    //     this.paymentService.getPaymentsAll().subscribe(payments => {
-    //             let paymentsAll = payments;
-    //
-    //             if (paymentsAll.length > 0){
-    //                 var minVal = paymentsAll[0];
-    //                 var maxVal = paymentsAll[0];
-    //
-    //                 for (let i=0; i<paymentsAll.length; i++){
-    //                     // if (minVal < paymentsAll[i].year){
-    //                     //     minVal = paymentsAll[i].year;
-    //                     // }
-    //
-    //                 }
-    //             }
-    //         }
-    //     );
-    // }
+    refreshMinMaxYear(): void {
+        this.paymentService.getPaymentsAll().subscribe(payments => {
+                let paymentsAll = payments;
+
+                if (paymentsAll.length > 0){
+                    var minVal = paymentsAll[0].year;
+                    var maxVal = paymentsAll[0].year;
+
+                    for (let i = 1; i < paymentsAll.length; i++){
+                        if (minVal > paymentsAll[i].year){
+                            minVal = paymentsAll[i].year;
+                        }
+                        if(maxVal < paymentsAll[i].year){
+                            maxVal = paymentsAll[i].year;
+                        }
+
+                    }
+                    this.maxVal = maxVal;
+                    this.minVal = minVal;
+                }
+            }
+        );
+    }
     sort(payments: Payment[]) {
         return payments.sort((a, b) => {
             return a.month - b.month;
@@ -211,6 +218,7 @@ export class YearComponent implements OnInit {
         this.getPayments();
         this.getTotal();
         this.getTotalYear();
+        this.refreshMinMaxYear();
 
     }
 }

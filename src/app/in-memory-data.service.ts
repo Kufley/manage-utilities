@@ -54,7 +54,22 @@ export class InMemoryDataService implements InMemoryDbService {
                     {name_variable :'Gas', current_variable: 210, prev_variable: 120, payment_variable: 510, coof: 1.5},
                     {name_variable :'Water', current_variable: 210, prev_variable: 120, payment_variable:910, coof: 1.5}
                 ]
-            }
+            },
+            // {id:7, month: 4, year: 2019,  saveStatus: 1, total: 1140,
+            //     fixed: [{ name_fixed:'Rent', payment_fixed: 210}],
+            //     variable:[
+            //         {name_variable :'Electricity', current_variable: 210, prev_variable: 120, payment_variable: 110, coof: 1.5},
+            //         {name_variable :'Gas', current_variable: 210, prev_variable: 120, payment_variable: 510, coof: 1.5},
+            //         {name_variable :'Water', current_variable: 210, prev_variable: 120, payment_variable:910, coof: 1.5}
+            //     ]
+            // }, {id:8, month: 4, year: 2016,  saveStatus: 1, total: 1140,
+            //     fixed: [{ name_fixed:'Rent', payment_fixed: 210}],
+            //     variable:[
+            //         {name_variable :'Electricity', current_variable: 210, prev_variable: 120, payment_variable: 110, coof: 1.5},
+            //         {name_variable :'Gas', current_variable: 210, prev_variable: 120, payment_variable: 510, coof: 1.5},
+            //         {name_variable :'Water', current_variable: 210, prev_variable: 120, payment_variable:910, coof: 1.5}
+            //     ]
+            // }
         ];
         return {payments};
 

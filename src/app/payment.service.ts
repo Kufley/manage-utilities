@@ -21,6 +21,11 @@ export class PaymentService {
         const url = `${this.monthsUrl}/?year=${year}`;
         return this.http.get<Payment[]>(url);
     }
+    getPaymentsAll(): Observable<Payment[]> {
+
+        const url = `${this.monthsUrl}`;
+        return this.http.get<Payment[]>(url);
+    }
 
     getPayment(month: number, year: number): Observable<Payment> {
 
