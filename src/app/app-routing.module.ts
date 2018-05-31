@@ -4,10 +4,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { YearComponent } from "./year/year.component";
 import { SingleMonthComponent } from "./single-month/single-month.component";
 
-
 const routes: Routes = [
-    { path: '', redirectTo: '/year:', pathMatch: 'full' },
-    //{ path: 'year/year', component: YearComponent },
+    { path: '', redirectTo: 'year/2018', pathMatch: 'full' },
     { path: 'year/:year', component: YearComponent },
     { path: 'year/:year/payment/:month', component: SingleMonthComponent },
 ];

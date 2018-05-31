@@ -37,7 +37,8 @@
 
                         <div class="value">
                             <label>Previous</label>
-                            <!--[ngClass]="wrongPay(payment.variable[i].prev_variable) ? 'error' : ''"-->
+                            <!--[ngClass]="wrongPay(index) ? 'error' : ''"-->
+
                             <input
                                    [(ngModel)]="payment.variable[i].prev_variable" type="number"
                                    name="prev-{{payment.variable[i].name_variable}}" class="form-control"

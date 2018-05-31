@@ -68,7 +68,6 @@ export class SingleMonthComponent implements OnInit {
         for (let i = 0; i < this.payment.variable.length; i++) {
             if (this.payment.variable[i].current_variable < this.payment.variable[i].prev_variable) {
                 wrongPayment = true;
-                console.log(wrongPayment);
             } else {
                 this.payment.variable[i].payment_variable = (this.payment.variable[i].current_variable -
                     (+this.payment.variable[i].prev_variable)) * this.payment.variable[i].coof;
@@ -88,7 +87,7 @@ export class SingleMonthComponent implements OnInit {
     validation(name:string):boolean {
         for (let j = 0; j < this.payment.fixed.length; j++) {
 
-            if (name == this.payment.fixed[j].name_fixed || name.match(/^[A-Z]*$/)) {
+            if (name == this.payment.fixed[j].name_fixed) {
                 return false;
             }
 
@@ -125,7 +124,7 @@ export class SingleMonthComponent implements OnInit {
 
         }
 
-        // this.name = '';
+        this.name = '';
     }
 
     goBack():void {
